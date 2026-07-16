@@ -25,16 +25,16 @@ export const sections: SectionsTranslations = {
   },
   homeHeader: {
     title: {
-      pl: 'Cześć,',
-      en: 'Hello,',
+      pl: 'Cześć, jestem Jakub',
+      en: "Hi, I'm Jakub",
     },
     subtitle: {
-      pl: 'Dzięki że mnie odwiedziłeś!',
-      en: 'Thanks for visiting me!',
+      pl: 'Full-stack developer, który zamienia pomysły w dopracowane aplikacje',
+      en: 'A full-stack developer who turns ideas into polished apps',
     },
     subtitle2: {
-      pl: 'Rozejrzyj się i zobacz, co tworzę',
-      en: 'Take a look around and see what I build',
+      pl: 'Tworzę szybkie i przemyślane rozwiązania webowe — od backendu w .NET po frontend w React. Rozejrzyj się i zobacz, nad czym pracuję.',
+      en: "I craft fast, thoughtful web solutions — from .NET on the backend to React on the front. Take a look around and see what I'm building.",
     },
   },
   homeAbout: {

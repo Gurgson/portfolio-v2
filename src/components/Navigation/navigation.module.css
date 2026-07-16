@@ -1,5 +1,5 @@
 .nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -7,8 +7,62 @@
   justify-content: space-between;
   align-items: center;
   padding: 3rem 6rem;
-  z-index: 10;
+  z-index: 50;
   font-size: 2rem;
+  transition:
+    padding 0.35s ease,
+    color 0.35s ease;
+}
+
+/* Panel tła — wjeżdża od góry po przekroczeniu progu (~50vh na stronie głównej) */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--color-background) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-100%);
+  opacity: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease;
+}
+
+.scrolled::before {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.scrolled {
+  padding: 1.25rem 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav::before {
+    transform: none;
+    transition: opacity 0.25s ease;
+  }
+}
+
+/* Nad ciemnym hero (strona główna, przed scrollem) — jasne elementy niezależnie od motywu.
+   Po pojawieniu się tła (.scrolled) wracamy do kolorów motywu dla kontrastu. */
+.onHero:not(.scrolled) {
+  color: #ffffff;
+}
+
+.onHero:not(.scrolled) .link {
+  color: #ffffff;
+}
+
+.onHero:not(.scrolled) .link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.onHero:not(.scrolled) .burger span {
+  background-color: #ffffff;
 }
 
 .links {
@@ -21,7 +75,9 @@
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.35s ease;
 }
 
 .link:hover {

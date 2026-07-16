@@ -1,8 +1,9 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import styles from './navigation.module.css'
-import { getPageUrl } from '@/lib/route-helper'
+import { getPageUrl, getPageName } from '@/lib/route-helper'
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher'
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher'
 import { Locale } from '@/lib/i18n-config'
@@ -15,12 +16,43 @@ interface NavigationProps {
 
 export default function Navigation({ lang }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  // Strona główna ma zawsze-ciemne hero -> nawigacja musi być jasna niezależnie od motywu.
+  const onHero = getPageName(pathname) === 'home'
+
+  // Po zjechaniu ~połowy hero (50vh) pokazujemy tło paska; na innych stronach próg mały.
+  useEffect(() => {
+    const getThreshold = () => (onHero ? window.innerHeight * 0.5 : 64)
+    let ticking = false
+    const update = () => {
+      ticking = false
+      setScrolled(window.scrollY > getThreshold())
+    }
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(update)
+      }
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [onHero])
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
   const closeMenu = () => setIsMenuOpen(false)
 
   return (
-    <nav className={styles.nav}>
+    <nav
+      className={`${styles.nav} ${onHero ? styles.onHero : ''} ${
+        scrolled ? styles.scrolled : ''
+      }`}
+    >
       <div className={styles.links}>
         <Link
           href={getPageUrl('home', lang)}
