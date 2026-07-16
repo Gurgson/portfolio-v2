@@ -88,7 +88,7 @@
 
 .textBlock {
   position: relative;
-  max-width: min(44rem, 36vw);
+  max-width: min(48rem, 40vw);
   padding-left: 2rem;
   color: #ffffff;
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
@@ -110,24 +110,24 @@
 /* Kolory wymuszone na klasach — inaczej selektory h1/h2/p z typography.css
    nadpisują dziedziczoną biel i tekst jest ciemny na ciemnym. */
 .title {
-  font-size: clamp(2.75rem, 5.5vw, 5.5rem);
+  font-size: clamp(3rem, 5.4vw, 6.5rem);
   font-weight: 700;
-  line-height: 1.02;
-  margin: 0 0 1.1rem;
+  line-height: 1;
+  margin: 0 0 1.2rem;
   letter-spacing: -0.02em;
   color: #ffffff;
 }
 
 .subtitle {
-  font-size: clamp(1.35rem, 2.5vw, 2.15rem);
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
   font-weight: 500;
-  line-height: 1.2;
-  margin: 0 0 1.1rem;
+  line-height: 1.15;
+  margin: 0 0 1.2rem;
   color: rgba(255, 255, 255, 0.92);
 }
 
 .subtitle2 {
-  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
   font-weight: 400;
   line-height: 1.55;
   letter-spacing: 0.01em;
@@ -160,7 +160,7 @@
   right: 48px;
   width: 2px;
   height: 82%; /* z narożnika w górę */
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--color-accent);
   transform: scaleY(0);
   transform-origin: bottom;
   animation: growY 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.4s forwards;
@@ -172,7 +172,7 @@
   bottom: 48px;
   height: 2px;
   width: 82%; /* z narożnika w lewo */
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: right;
   animation: growX 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.4s forwards;
@@ -193,11 +193,11 @@
 /* ---- Karta z kodem C# (prawa strona) ---- */
 .codeCard {
   position: absolute;
-  left: 70%;
-  top: 50%;
+  left: 73%;
+  top: 47%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  width: min(48rem, 48vw);
+  width: min(52rem, 49vw);
   border-radius: 14px;
   overflow: hidden;
   background: #0d1117;
@@ -243,8 +243,8 @@
 .code {
   display: block;
   margin: 0;
-  padding: 1.3rem 1.6rem 1.5rem;
-  font-size: clamp(0.85rem, 1.05vw, 1.15rem);
+  padding: 1.4rem 1.75rem 1.6rem;
+  font-size: clamp(0.9rem, 1.15vw, 1.25rem);
   line-height: 1.8;
   white-space: pre;
   color: #d4d4d4;
@@ -271,6 +271,27 @@
 }
 .num {
   color: #b5cea8;
+}
+
+/* Kursor tekstowy — solidny w trakcie pisania, miga po zakończeniu */
+.cursor {
+  display: inline-block;
+  font-weight: 400;
+  color: inherit;
+}
+
+.cursorDone {
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ---- IDE: wariant jasny (VS Code Light) w light theme ---- */
@@ -408,12 +429,32 @@
   .scrollChevron {
     animation: none;
   }
+
+  .cursorDone {
+    animation: none;
+  }
 }
 
 /* Zakres, w którym karta kodu jest już ukryta (<=1400px) — tekst może być szerszy. */
 @media (max-width: 1400px) and (min-width: 769px) {
   .textBlock {
     max-width: min(48rem, 60vw);
+  }
+}
+
+/* Ozdobne linie (ramka L + kreska akcentu) chowamy na węższych ekranach —
+   na wąsko nachodzą na tekst. Tekst bez wcięcia na akcent. */
+@media (max-width: 1024px) {
+  .frame {
+    display: none;
+  }
+
+  .textBlock::before {
+    display: none;
+  }
+
+  .textBlock {
+    padding-left: 0;
   }
 }
 
@@ -425,12 +466,13 @@
 
   .content {
     padding: 0 1.5rem;
+    align-items: center;
+    text-align: center;
   }
 
   /* Na wąskich ekranach karta kodu jest ukryta -> tekst dostaje pełną szerokość. */
   .textBlock {
     max-width: 100%;
-    padding-left: 1.25rem;
   }
 
   .title {
@@ -448,18 +490,5 @@
   .scrollBtn {
     align-self: center;
     margin: 2.25rem 0 0 0;
-  }
-
-  /* Mniejszy inset ramki, żeby nie nachodziła na tekst na wąskich ekranach. */
-  .frameRight {
-    right: 18px;
-    bottom: 18px;
-    height: 80%;
-  }
-
-  .frameBottom {
-    right: 18px;
-    bottom: 18px;
-    width: 88%;
   }
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { Locale } from '@/lib/i18n-config'
-import { sections } from '@/dictionaries/sections'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import { ContactForm } from '@/components/ContactForm/ContactForm'
 import styles from './contactSection.module.css'
 import { CONTACT_INFO } from '@/lib/contants'
@@ -12,16 +12,20 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ lang }: ContactSectionProps) {
-  const t = sections.contact
+  const t = useT()
 
   return (
     <section className={styles.section}>
       <div className={styles.container}>
         {/* Hero */}
         <header className={styles.hero}>
-          <SectionHeader>{t.hero.title[lang]}</SectionHeader>
-          <p className={styles.subtitle}>{t.hero.subtitle[lang]}</p>
-          <p className={styles.description}>{t.hero.description[lang]}</p>
+          <SectionHeader>{t('sections.contact.hero.title')}</SectionHeader>
+          <p className={styles.subtitle}>
+            {t('sections.contact.hero.subtitle')}
+          </p>
+          <p className={styles.description}>
+            {t('sections.contact.hero.description')}
+          </p>
         </header>
 
         <div className={styles.content}>
@@ -29,7 +33,9 @@ export function ContactSection({ lang }: ContactSectionProps) {
           <aside className={styles.sidebar}>
             {/* Contact Details */}
             <div className={styles.infoCard}>
-              <h3 className={styles.cardTitle}>{t.info.title[lang]}</h3>
+              <h3 className={styles.cardTitle}>
+                {t('sections.contact.info.title')}
+              </h3>
 
               <ul className={styles.infoList}>
                 {/* Email */}
@@ -47,7 +53,7 @@ export function ContactSection({ lang }: ContactSectionProps) {
                   </div>
                   <div className={styles.infoContent}>
                     <span className={styles.infoLabel}>
-                      {t.info.email[lang]}
+                      {t('sections.contact.info.email')}
                     </span>
                     <a
                       href={`mailto:${CONTACT_INFO.email}`}
@@ -72,7 +78,7 @@ export function ContactSection({ lang }: ContactSectionProps) {
                   </div>
                   <div className={styles.infoContent}>
                     <span className={styles.infoLabel}>
-                      {t.info.phone[lang]}
+                      {t('sections.contact.info.phone')}
                     </span>
                     <a
                       href={CONTACT_INFO.phoneLink}
@@ -87,7 +93,9 @@ export function ContactSection({ lang }: ContactSectionProps) {
 
             {/* Social Links */}
             <div className={styles.infoCard}>
-              <h3 className={styles.cardTitle}>{t.socials.title[lang]}</h3>
+              <h3 className={styles.cardTitle}>
+                {t('sections.contact.socials.title')}
+              </h3>
               <div className={styles.socialLinks}>
                 <a
                   href={CONTACT_INFO.github}
@@ -122,21 +130,23 @@ export function ContactSection({ lang }: ContactSectionProps) {
               <div className={styles.availabilityHeader}>
                 <span className={styles.availabilityDot} />
                 <h3 className={styles.availabilityTitle}>
-                  {t.availability.title[lang]}
+                  {t('sections.contact.availability.title')}
                 </h3>
               </div>
               <p className={styles.availabilityText}>
-                {t.availability.text[lang]}
+                {t('sections.contact.availability.text')}
               </p>
               <p className={styles.responseTime}>
-                {t.availability.responseTime[lang]}
+                {t('sections.contact.availability.responseTime')}
               </p>
             </div>
           </aside>
 
           {/* Form Section */}
           <div className={styles.formSection}>
-            <h3 className={styles.formTitle}>{t.form.title[lang]}</h3>
+            <h3 className={styles.formTitle}>
+              {t('sections.contact.form.title')}
+            </h3>
             <ContactForm lang={lang} />
           </div>
         </div>

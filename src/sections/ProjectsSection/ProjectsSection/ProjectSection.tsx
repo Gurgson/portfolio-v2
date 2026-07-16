@@ -10,7 +10,7 @@ import {
   ProjectStatus,
   ProjectCategory,
 } from '../types'
-import { sections } from '@/dictionaries/sections'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import styles from './projectSection.module.css'
 import { SectionHeader } from '@/components/Header/SectionHeader'
 
@@ -33,7 +33,7 @@ export const ProjectsSection = ({
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(0)
 
-  const t = sections.projectsSection
+  const t = useT()
 
   const toggleDropdown = (dropdown: string) => {
     setOpenDropdown(openDropdown === dropdown ? null : dropdown)
@@ -149,34 +149,36 @@ export const ProjectsSection = ({
 
   const getStatusLabel = (status: ProjectStatus) => {
     const statusLabels: Record<ProjectStatus, string> = {
-      'in-progress': t.filters.status.inProgress[lang],
-      completed: t.filters.status.completed[lang],
-      archived: t.filters.status.archived[lang],
+      'in-progress': t('sections.projectsSection.filters.status.inProgress'),
+      completed: t('sections.projectsSection.filters.status.completed'),
+      archived: t('sections.projectsSection.filters.status.archived'),
     }
     return statusLabels[status]
   }
 
   const getCategoryLabel = (category: ProjectCategory) => {
     const categoryLabels: Record<ProjectCategory, string> = {
-      web: t.filters.category.web[lang],
-      desktop: t.filters.category.desktop[lang],
+      web: t('sections.projectsSection.filters.category.web'),
+      desktop: t('sections.projectsSection.filters.category.desktop'),
     }
     return categoryLabels[category]
   }
 
   const getSortLabel = (option: SortOption) => {
     const sortLabels: Record<SortOption, string> = {
-      name: t.sort.name[lang],
-      highlight: t.sort.highlight[lang],
-      date: t.sort.date[lang],
+      name: t('sections.projectsSection.sort.name'),
+      highlight: t('sections.projectsSection.sort.highlight'),
+      date: t('sections.projectsSection.sort.date'),
     }
     return sortLabels[option]
   }
 
-  const titleParts = t.title[lang].split('\n')
+  const titleParts = t('sections.projectsSection.title').split('\n')
   return (
     <section className={`contrast ${styles.section}`}>
-      <div className={styles.bgText}>{t.bgText[lang]}</div>
+      <div className={styles.bgText}>
+        {t('sections.projectsSection.bgText')}
+      </div>
 
       <div className={styles.container}>
         {/* Sidebar */}
@@ -192,7 +194,7 @@ export const ProjectsSection = ({
                 className={styles.navButton}
                 onClick={prevPage}
                 disabled={currentPage === 0}
-                aria-label={t.pagination.prev[lang]}
+                aria-label={t('sections.projectsSection.pagination.prev')}
               >
                 ‹
               </button>
@@ -200,7 +202,7 @@ export const ProjectsSection = ({
                 className={styles.navButton}
                 onClick={nextPage}
                 disabled={currentPage === totalPages - 1 || totalPages === 0}
-                aria-label={t.pagination.next[lang]}
+                aria-label={t('sections.projectsSection.pagination.next')}
               >
                 ›
               </button>
@@ -213,7 +215,9 @@ export const ProjectsSection = ({
           </SectionHeader>
 
           {/* Desciption */}
-          <small className={styles.description}>{t.description[lang]}</small>
+          <small className={styles.description}>
+            {t('sections.projectsSection.description')}
+          </small>
 
           {/* Controls */}
           <div className={styles.controls}>
@@ -223,7 +227,7 @@ export const ProjectsSection = ({
                 className={styles.dropdownToggle}
                 onClick={() => toggleDropdown('sort')}
               >
-                {t.sort.label[lang]}
+                {t('sections.projectsSection.sort.label')}
                 <span className={styles.arrow}>▼</span>
               </button>
               {openDropdown === 'sort' && (
@@ -251,7 +255,7 @@ export const ProjectsSection = ({
                 className={styles.dropdownToggle}
                 onClick={() => toggleDropdown('status')}
               >
-                {t.filters.status.label[lang]}
+                {t('sections.projectsSection.filters.status.label')}
                 {filters.status.length > 0 && (
                   <span className={styles.badge}>{filters.status.length}</span>
                 )}
@@ -278,7 +282,7 @@ export const ProjectsSection = ({
                 className={styles.dropdownToggle}
                 onClick={() => toggleDropdown('category')}
               >
-                {t.filters.category.label[lang]}
+                {t('sections.projectsSection.filters.category.label')}
                 {filters.category.length > 0 && (
                   <span className={styles.badge}>
                     {filters.category.length}
@@ -307,7 +311,7 @@ export const ProjectsSection = ({
                 className={styles.dropdownToggle}
                 onClick={() => toggleDropdown('technologies')}
               >
-                {t.filters.technologies.label[lang]}
+                {t('sections.projectsSection.filters.technologies.label')}
                 {filters.technologies.length > 0 && (
                   <span className={styles.badge}>
                     {filters.technologies.length}
@@ -336,7 +340,9 @@ export const ProjectsSection = ({
                 className={styles.dropdownToggle}
                 onClick={() => toggleDropdown('logic')}
               >
-                {filterLogic === 'and' ? t.filters.logic.and[lang] : t.filters.logic.or[lang]}
+                {filterLogic === 'and'
+                  ? t('sections.projectsSection.filters.logic.and')
+                  : t('sections.projectsSection.filters.logic.or')}
                 <span className={styles.arrow}>▼</span>
               </button>
               {openDropdown === 'logic' && (
@@ -348,7 +354,7 @@ export const ProjectsSection = ({
                       checked={filterLogic === 'and'}
                       onChange={() => setFilterLogic('and')}
                     />
-                    {t.filters.logic.and[lang]}
+                    {t('sections.projectsSection.filters.logic.and')}
                   </label>
                   <label className={styles.radioOption}>
                     <input
@@ -357,7 +363,7 @@ export const ProjectsSection = ({
                       checked={filterLogic === 'or'}
                       onChange={() => setFilterLogic('or')}
                     />
-                    {t.filters.logic.or[lang]}
+                    {t('sections.projectsSection.filters.logic.or')}
                   </label>
                 </div>
               )}
@@ -366,7 +372,7 @@ export const ProjectsSection = ({
 
           {activeFiltersCount > 0 && (
             <button className={styles.clearButton} onClick={clearFilters}>
-              → {t.filters.clear[lang]}
+              → {t('sections.projectsSection.filters.clear')}
             </button>
           )}
         </div>

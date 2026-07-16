@@ -1,0 +1,84 @@
+# Orkiestracja na VPS: reverse proxy (Caddy) + Postgres + portfolio (Next) + .NET (Czytnik).
+# Sekrety w pliku deploy/.env (patrz deploy/.env.example).
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - portfolio
+    networks:
+      - web
+
+  portfolio:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://portfolio:${DB_PASSWORD}@postgres:5432/portfolio
+    depends_on:
+      - postgres
+    mem_limit: 512m
+    networks:
+      - web
+      - internal
+
+  # .NET (czytnik.jstapinski.eu) — obraz budujesz z repo Czytnik i wgrywasz/budujesz na VPS.
+  # Odkomentuj i ustaw image/build gdy będzie gotowy.
+  # czytnik:
+  #   image: czytnik:latest
+  #   restart: unless-stopped
+  #   environment:
+  #     ASPNETCORE_URLS: http://0.0.0.0:8080
+  #     ConnectionStrings__Default: Host=postgres;Port=5432;Database=czytnik;Username=czytnik;Password=${CZYTNIK_DB_PASSWORD}
+  #   depends_on:
+  #     - postgres
+  #   mem_limit: 384m
+  #   networks:
+  #     - web
+  #     - internal
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: portfolio
+      POSTGRES_USER: portfolio
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    # Tuning pod mały serwer (2 GB RAM, mały ruch).
+    command:
+      - postgres
+      - '-c'
+      - 'shared_buffers=128MB'
+      - '-c'
+      - 'max_connections=30'
+      - '-c'
+      - 'effective_cache_size=512MB'
+      - '-c'
+      - 'work_mem=8MB'
+    # Tylko localhost VPS-a (dla migracji/seed przez tunel SSH) — NIE wystawione na świat.
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    mem_limit: 512m
+    networks:
+      - internal
+
+networks:
+  web:
+  internal:
+
+volumes:
+  caddy_data:
+  caddy_config:
+  pg_data:

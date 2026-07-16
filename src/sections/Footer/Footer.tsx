@@ -1,42 +1,42 @@
 import Link from 'next/link'
-import { sections } from '@/dictionaries/sections'
+import { getT } from '@/lib/data/translations'
 import { Locale } from '@/lib/i18n-config'
 import styles from './footer.module.css'
 
 import { CONTACT_INFO } from '@/lib/contants'
-import projects from '@/data/projects'
+import { getHighlightedProjects } from '@/lib/data/projects'
 
 interface FooterProps {
   lang: Locale
 }
 
-export default function Footer({ lang }: FooterProps) {
-  const t = sections.footer
-  const highlightedProjects = projects.filter((p) => p.highlight)
+export default async function Footer({ lang }: FooterProps) {
+  const t = await getT(lang)
+  const highlightedProjects = await getHighlightedProjects()
 
   return (
     <footer className={`${styles.footer} contrast`}>
       <div className={styles.container}>
         <div className={styles.ctaSection}>
-          <h2 className={styles.ctaTitle}>{t.cta[lang]}</h2>
+          <h2 className={styles.ctaTitle}>{t('sections.footer.cta')}</h2>
         </div>
         <div className={styles.columnsGrid}>
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>
-              {t.columns.links.title[lang]}
+              {t('sections.footer.columns.links.title')}
             </h3>
             <nav className={styles.nav}>
               <Link href={`/${lang}`} className={styles.link}>
                 <span className={styles.linkArrow}>›</span>
-                <small>{t.columns.links.home[lang]}</small>
+                <small>{t('sections.footer.columns.links.home')}</small>
               </Link>
               <Link href={`/${lang}/contact`} className={styles.link}>
                 <span className={styles.linkArrow}>›</span>
-                <small>{t.columns.links.contact[lang]}</small>
+                <small>{t('sections.footer.columns.links.contact')}</small>
               </Link>
               <Link href={`/${lang}/references`} className={styles.link}>
                 <span className={styles.linkArrow}>›</span>
-                <small>{t.columns.links.references[lang]}</small>
+                <small>{t('sections.footer.columns.links.references')}</small>
               </Link>
             </nav>
           </div>
@@ -44,12 +44,12 @@ export default function Footer({ lang }: FooterProps) {
           {/* Kolumna 2: Projekty */}
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>
-              {t.columns.projects.title[lang]}
+              {t('sections.footer.columns.projects.title')}
             </h3>
             <nav className={styles.nav}>
               <Link href={`/${lang}#projects`} className={styles.link}>
                 <span className={styles.linkArrow}>›</span>
-                <small>{t.columns.projects.all[lang]}</small>
+                <small>{t('sections.footer.columns.projects.all')}</small>
               </Link>
               {highlightedProjects.map((project) => (
                 <Link
@@ -67,27 +67,31 @@ export default function Footer({ lang }: FooterProps) {
           {/* Kolumna 3: Kontakt */}
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>
-              {t.columns.contact.title[lang]}
+              {t('sections.footer.columns.contact.title')}
             </h3>
             <div className={styles.contactList}>
               <Link
-                href={`/${lang}/contact/#${t.columns.contact.formInternalId[lang]}`}
+                href={`/${lang}/contact/#${t('sections.footer.columns.contact.formInternalId')}`}
                 className={styles.contactItem}
               >
-                <small>{t.columns.contact.form[lang]}</small>
+                <small>{t('sections.footer.columns.contact.form')}</small>
               </Link>
               <a
                 href={`mailto:${CONTACT_INFO.email}`}
                 className={styles.contactItem}
               >
-                <small>{t.emailLabel[lang]}: {CONTACT_INFO.email}</small>
+                <small>
+                  {t('sections.footer.emailLabel')}: {CONTACT_INFO.email}
+                </small>
               </a>
 
               <a
                 href={`tel:${CONTACT_INFO.phone.replace(/\s/g, '')}`}
                 className={styles.contactItem}
               >
-                <small>{t.phoneLabel[lang]}: {CONTACT_INFO.phone}</small>
+                <small>
+                  {t('sections.footer.phoneLabel')}: {CONTACT_INFO.phone}
+                </small>
               </a>
             </div>
 
@@ -123,8 +127,12 @@ export default function Footer({ lang }: FooterProps) {
       {/* Dolny pasek */}
       <div className={styles.bottom}>
         <div className={styles.bottomContent}>
-          <small className={styles.copyright}>{t.copyright[lang]}</small>
-          <small className={styles.builtWith}>{t.builtWith[lang]}</small>
+          <small className={styles.copyright}>
+            {t('sections.footer.copyright')}
+          </small>
+          <small className={styles.builtWith}>
+            {t('sections.footer.builtWith')}
+          </small>
         </div>
       </div>
     </footer>

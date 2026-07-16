@@ -3,7 +3,7 @@
 import { useCallback, useState, useEffect } from 'react'
 import { useFollowerContext } from './FollowerContext'
 import type { SpawnProps } from '../../types/Follower'
-import { common } from '@/dictionaries/common'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import styles from './follower.module.css'
 import Image from 'next/image'
 
@@ -16,6 +16,7 @@ export default function Spawn({
   lang = 'pl',
 }: SpawnProps) {
   const { state, dispatch } = useFollowerContext()
+  const t = useT()
   const [showBubble, setShowBubble] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
 
@@ -115,7 +116,11 @@ export default function Spawn({
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
-      aria-label={state.active ? common.follower.hideGuide[lang] : common.follower.showGuide[lang]}
+      aria-label={
+        state.active
+          ? t('common.follower.hideGuide')
+          : t('common.follower.showGuide')
+      }
       aria-pressed={state.active}
     >
       <Image

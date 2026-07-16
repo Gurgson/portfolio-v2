@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFollowerContext } from './FollowerContext'
 import type { FollowerProps } from '../../types/Follower'
-import { common } from '@/dictionaries/common'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import styles from './follower.module.css'
 
 const SPAWN_DURATION = 500
@@ -20,6 +20,7 @@ export default function Follower({
   lang = 'pl',
 }: FollowerProps) {
   const { state, dispatch } = useFollowerContext()
+  const t = useT()
   const animationFrameRef = useRef<number | null>(null)
   const stateRef = useRef(state)
   const positionRef = useRef(state.position)
@@ -153,7 +154,7 @@ export default function Follower({
     >
       <img
         src={currentSprite}
-        alt={common.follower.altText[lang]}
+        alt={t('common.follower.altText')}
         className={styles.sprite}
         draggable={false}
       />

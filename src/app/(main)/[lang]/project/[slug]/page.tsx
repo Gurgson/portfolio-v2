@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Locale } from '@/lib/i18n-config'
-import { getProjectBySlug, projects } from '@/data/projects'
+import { getProjectBySlug, getProjects } from '@/lib/data/projects'
 import styles from './projectPage.module.css'
 
 interface ProjectPageProps {
@@ -14,6 +14,7 @@ interface ProjectPageProps {
 export async function generateStaticParams() {
   const locales: Locale[] = ['en', 'pl']
   const params: { lang: Locale; slug: string }[] = []
+  const projects = await getProjects()
 
   for (const lang of locales) {
     for (const project of projects) {
@@ -26,7 +27,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { lang, slug } = (await params) as { lang: Locale; slug: string }
-  const project = getProjectBySlug(slug, lang)
+  const project = await getProjectBySlug(slug, lang)
 
   if (!project) {
     return {
@@ -54,7 +55,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { lang, slug } = (await params) as { lang: Locale; slug: string }
-  const project = getProjectBySlug(slug, lang)
+  const project = await getProjectBySlug(slug, lang)
 
   if (!project) {
     notFound()

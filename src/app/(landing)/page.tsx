@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import styles from './languageSelectionPage.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { sections } from '@/dictionaries/sections'
+import { getDictionary, createTranslator } from '@/lib/data/translations'
 
 export const metadata: Metadata = {
   title: 'Choose language',
@@ -11,26 +11,32 @@ export const metadata: Metadata = {
   },
 }
 
-export default function LanguageSelectionPage() {
-  const { languagePage } = sections
+export default async function LanguageSelectionPage() {
+  // Strona wyboru języka pokazuje oba języki naraz -> dwa translatory.
+  const pl = createTranslator(await getDictionary('pl'))
+  const en = createTranslator(await getDictionary('en'))
 
   return (
     <main className={`${styles.container}`}>
       <Link href="/pl">
         <section className={`${styles.section} ${styles.pl}`}>
           <div className={`${styles.content} ${styles.plContent}`}>
-            <h1 className={styles.title}>{languagePage.title.pl}</h1>
-            <h2 className={styles.subtitle}>{languagePage.subtitle.pl}</h2>
+            <h1 className={styles.title}>
+              {pl('sections.languagePage.title')}
+            </h1>
+            <h2 className={styles.subtitle}>
+              {pl('sections.languagePage.subtitle')}
+            </h2>
 
             <Image
               src="/icons/pl.svg"
-              alt={languagePage.flagAlt.pl}
+              alt={pl('sections.languagePage.flagAlt')}
               width={200}
               height={100}
               className={styles.flagImage}
             />
             <small className={styles.description}>
-              {languagePage.description.pl}
+              {pl('sections.languagePage.description')}
             </small>
           </div>
           <div
@@ -46,7 +52,7 @@ export default function LanguageSelectionPage() {
 
       <Image
         src="/programmist.gif"
-        alt={languagePage.programmerAlt.en}
+        alt={en('sections.languagePage.programmerAlt')}
         width={450}
         height={450}
         className={styles.centerImage}
@@ -58,17 +64,21 @@ export default function LanguageSelectionPage() {
           className={`${styles.section} ${styles.en} ${styles.sectionBorder}`}
         >
           <div className={`${styles.content} ${styles.enContent}`}>
-            <h1 className={styles.title}>{languagePage.title.en}</h1>
-            <h2 className={styles.subtitle}>{languagePage.subtitle.en}</h2>
+            <h1 className={styles.title}>
+              {en('sections.languagePage.title')}
+            </h1>
+            <h2 className={styles.subtitle}>
+              {en('sections.languagePage.subtitle')}
+            </h2>
             <Image
               src="/icons/en.svg"
-              alt={languagePage.flagAlt.en}
+              alt={en('sections.languagePage.flagAlt')}
               width={200}
               height={100}
               className={styles.flagImage}
             />
             <small className={styles.description}>
-              {languagePage.description.en}
+              {en('sections.languagePage.description')}
             </small>
           </div>
           <div

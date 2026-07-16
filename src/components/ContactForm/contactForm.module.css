@@ -52,6 +52,28 @@
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
+/* Light theme: formularz jest na zielonej karcie -> jasne labelki,
+   białe pola z ciemnym tekstem, czytelny przycisk. */
+[data-theme='light'] .label {
+  color: #ffffff;
+}
+
+[data-theme='light'] .input,
+[data-theme='light'] .textarea {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme='light'] .input::placeholder,
+[data-theme='light'] .textarea::placeholder {
+  color: #6b7280;
+}
+
+[data-theme='light'] .submitButton {
+  color: #ffffff;
+}
+
 .input:disabled,
 .textarea:disabled {
   opacity: 0.6;

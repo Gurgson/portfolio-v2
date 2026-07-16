@@ -7,7 +7,7 @@ import Image from 'next/image'
 import styles from './technologiesSection.module.css'
 import { technologiesData, TechnologyGroup } from '@/data/technlogiesData'
 import { Locale, Localized } from '@/lib/i18n-config'
-import { sections } from '@/dictionaries/sections'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import { getIconUrlOriginal } from '@/lib/technologies-helper'
 
 interface TechnologiesSectionProps {
@@ -40,7 +40,7 @@ export default function TechnologiesSection({
   const [activeGroup, setActiveGroup] = useState<TechnologyGroup | null>(null)
   const [lockedGroup, setLockedGroup] = useState<TechnologyGroup | null>(null)
 
-  const { headers } = sections
+  const t = useT()
   const displayedGroup = lockedGroup || activeGroup
 
   const handleCardClick = (group: TechnologyGroup) => {
@@ -53,8 +53,8 @@ export default function TechnologiesSection({
 
   return (
     <section className={styles.section}>
-      <SectionHeader decoration={headers.technologies.small[lang]}>
-        {headers.technologies.big[lang]}
+      <SectionHeader decoration={t('sections.headers.technologies.small')}>
+        {t('sections.headers.technologies.big')}
       </SectionHeader>
 
       {/* Desktop view */}
@@ -75,7 +75,37 @@ export default function TechnologiesSection({
             >
               <h2 className={styles.cardTitle}>{group.title[lang]}</h2>
               {lockedGroup?.title[lang] === group.title[lang] && (
-                <span className={styles.lockIcon}>X</span>
+                <svg
+                  className={styles.lockIcon}
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <g transform="translate(0 -1028.4)">
+                    <g transform="matrix(.70711 .70711 -.70711 .70711 737.68 297.72)">
+                      <path
+                        className={styles.pinHeadBack}
+                        d="m11 1028.4v13h1 6.406c-0.595-1.1-1.416-2.1-2.406-2.8v-8c0.616-0.6 1.131-1.4 1.531-2.2h-5.531-1z"
+                      />
+                      <path
+                        className={styles.pinNeedle}
+                        d="m11 13v2 4 2l1 2v-2-6-2h-1z"
+                        transform="translate(0 1028.4)"
+                      />
+                      <path
+                        className={styles.pinNeedleShadow}
+                        d="m12 13v2 4 2 2l1-2v-2-4-2h-1z"
+                        transform="translate(0 1028.4)"
+                      />
+                      <path
+                        className={styles.pinHeadFront}
+                        d="m6.4688 1028.4c0.4006 0.8 0.915 1.6 1.5312 2.2v8c-0.9897 0.7-1.8113 1.7-2.4062 2.8h6.4062v-13h-5.5312z"
+                      />
+                    </g>
+                  </g>
+                </svg>
               )}
             </div>
           ))}
@@ -115,7 +145,7 @@ export default function TechnologiesSection({
             </>
           ) : (
             <small className={styles.hint}>
-              {sections.homeTech.hintText[lang]}
+              {t('sections.homeTech.hintText')}
             </small>
           )}
         </div>

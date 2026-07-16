@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 import { Locale } from '@/lib/i18n-config'
-import { recommendationsTranslations as t } from '@/dictionaries/pages/reccomendation'
+import { getT } from '@/lib/data/translations'
 import styles from './recommendationsPage.module.css'
-import { recommendations } from '@/data/recommendation'
+import { getRecommendations } from '@/lib/data/recommendations'
 import RecommendationCard from './RecommendationCard'
 
 interface RecommendationsPageProps {
@@ -13,10 +13,11 @@ export async function generateMetadata({
   params,
 }: RecommendationsPageProps): Promise<Metadata> {
   const { lang } = (await params) as { lang: Locale }
+  const t = await getT(lang)
 
   return {
-    title: t.hero.title[lang],
-    description: t.hero.description[lang],
+    title: t('recommendations.hero.title'),
+    description: t('recommendations.hero.description'),
   }
 }
 
@@ -24,6 +25,8 @@ export default async function RecommendationsPage({
   params,
 }: RecommendationsPageProps) {
   const { lang } = (await params) as { lang: Locale }
+  const t = await getT(lang)
+  const recommendations = await getRecommendations()
 
   return (
     <div className={` ${styles.pageWrapper}`}>
@@ -31,9 +34,13 @@ export default async function RecommendationsPage({
         {/* Hero Section */}
         <header className={styles.hero}>
           <div className={styles.heroContent}>
-            <span className={styles.eyebrow}>{t.hero.subtitle[lang]}</span>
-            <h1 className={styles.title}>{t.hero.title[lang]}</h1>
-            <p className={styles.description}>{t.hero.description[lang]}</p>
+            <span className={styles.eyebrow}>
+              {t('recommendations.hero.subtitle')}
+            </span>
+            <h1 className={styles.title}>{t('recommendations.hero.title')}</h1>
+            <p className={styles.description}>
+              {t('recommendations.hero.description')}
+            </p>
           </div>
           <div className={styles.heroDecoration}>
             <svg
@@ -58,7 +65,7 @@ export default async function RecommendationsPage({
               index={index}
               lang={lang}
               t={{
-                download: t.card.download[lang],
+                download: t('recommendations.card.download'),
               }}
             />
           ))}

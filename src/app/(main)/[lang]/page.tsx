@@ -4,7 +4,7 @@ import HeroSection from '@/sections/HeroSection/HeroSection'
 import TechnologiesSection from '@/sections/TechnologiesSection/TechnologiesSection'
 import AboutSection from '@/sections/AboutSection/AboutSection'
 import { ProjectsSection } from '@/sections/ProjectsSection'
-import { projects } from '@/data/projects'
+import { getProjects } from '@/lib/data/projects'
 import { techs } from '@/data/technologies'
 import CTASection from '@/sections/CTASection/CTASection'
 
@@ -14,6 +14,7 @@ interface HomePageProps {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = (await params) as { lang: Locale }
+  const projects = await getProjects()
 
   return (
     <>

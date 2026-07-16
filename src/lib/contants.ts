@@ -11,7 +11,7 @@ export const CONTACT_INFO = {
   phone: '+48 605 663 712',
   phoneLink: 'tel:+48605663712',
   github: 'https://github.com/gurgson',
-  linkedin: 'https://linkedin.com/in/jakub-stapinski-aa6a97245',
+  linkedin: 'https://linkedin.com/in/jakub-stapinski',
 }
 
 export const SOCIAL_LINKS = [

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Locale } from '@/lib/i18n-config'
-import { sections } from '@/dictionaries/sections'
+import { getT } from '@/lib/data/translations'
 import styles from './ctaSection.module.css'
 import Image from 'next/image'
 
@@ -8,21 +8,21 @@ interface CTASectionProps {
   lang: Locale
 }
 
-export default function CTASection({ lang }: CTASectionProps) {
-  const t = sections.cta
+export default async function CTASection({ lang }: CTASectionProps) {
+  const t = await getT(lang)
 
   const extras = [
     {
       icon: '/icons/CTA/fast-response.png',
-      label: t.extras.fast[lang],
+      label: t('sections.cta.extras.fast'),
     },
     {
       icon: '/icons/CTA/communication.png',
-      label: t.extras.friendly[lang],
+      label: t('sections.cta.extras.friendly'),
     },
     {
       icon: '/icons/CTA/approach.png',
-      label: t.extras.professional[lang],
+      label: t('sections.cta.extras.professional'),
     },
   ]
 
@@ -31,13 +31,13 @@ export default function CTASection({ lang }: CTASectionProps) {
       <div className={styles.backgroundPattern} />
       <div className={styles.container}>
         <div className={styles.content}>
-          <p className={styles.eyebrow}>{t.eyebrow[lang]}</p>
-          <h2 className={styles.title}>{t.title[lang]}</h2>
-          <p className={styles.description}>{t.description[lang]}</p>
+          <p className={styles.eyebrow}>{t('sections.cta.eyebrow')}</p>
+          <h2 className={styles.title}>{t('sections.cta.title')}</h2>
+          <p className={styles.description}>{t('sections.cta.description')}</p>
 
           <div className={styles.buttons}>
             <Link href={`/${lang}/contact`} className={styles.primaryButton}>
-              <p>{t.buttons.contact[lang]}</p>
+              <p>{t('sections.cta.buttons.contact')}</p>
               <span className={styles.buttonArrow}>→</span>
             </Link>
           </div>

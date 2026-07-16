@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { Locale } from '@/lib/i18n-config'
-import { sections } from '@/dictionaries/sections'
+import { getT } from '@/lib/data/translations'
 import { ContactSection } from '@/sections/ContactSection/ContactSection'
 
 interface ContactPageProps {
@@ -11,11 +11,11 @@ export async function generateMetadata({
   params,
 }: ContactPageProps): Promise<Metadata> {
   const { lang } = (await params) as { lang: Locale }
-  const { hero } = sections.contact
+  const t = await getT(lang)
 
   return {
-    title: hero.title[lang],
-    description: hero.description[lang],
+    title: t('sections.contact.hero.title'),
+    description: t('sections.contact.hero.description'),
   }
 }
 

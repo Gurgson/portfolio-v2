@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { Locale } from '@/lib/i18n-config'
-import { sections } from '@/dictionaries/sections'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import { sendContactEmail, ContactFormData } from '@/lib/actions/contact'
 import styles from './contactForm.module.css'
 
@@ -18,7 +18,7 @@ interface FormErrors {
 }
 
 export function ContactForm({ lang }: ContactFormProps) {
-  const { form, validation } = sections.contact
+  const t = useT()
 
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
@@ -36,23 +36,23 @@ export function ContactForm({ lang }: ContactFormProps) {
     const newErrors: FormErrors = {}
 
     if (!formData.name.trim()) {
-      newErrors.name = validation.nameRequired[lang]
+      newErrors.name = t('sections.contact.validation.nameRequired')
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = validation.emailRequired[lang]
+      newErrors.email = t('sections.contact.validation.emailRequired')
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = validation.emailInvalid[lang]
+      newErrors.email = t('sections.contact.validation.emailInvalid')
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = validation.subjectRequired[lang]
+      newErrors.subject = t('sections.contact.validation.subjectRequired')
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = validation.messageRequired[lang]
+      newErrors.message = t('sections.contact.validation.messageRequired')
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = validation.messageMinLength[lang]
+      newErrors.message = t('sections.contact.validation.messageMinLength')
     }
 
     setErrors(newErrors)
@@ -96,12 +96,12 @@ export function ContactForm({ lang }: ContactFormProps) {
       onSubmit={handleSubmit}
       className={styles.form}
       noValidate
-      id={sections.footer.columns.contact.formInternalId[lang]}
+      id={t('sections.footer.columns.contact.formInternalId')}
     >
       <div className={styles.row}>
         <div className={styles.field}>
           <label htmlFor="name" className={styles.label}>
-            {form.name.label[lang]}
+            {t('sections.contact.form.name.label')}
           </label>
           <input
             type="text"
@@ -109,7 +109,7 @@ export function ContactForm({ lang }: ContactFormProps) {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder={form.name.placeholder[lang]}
+            placeholder={t('sections.contact.form.name.placeholder')}
             className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
             disabled={status === 'loading'}
           />
@@ -118,7 +118,7 @@ export function ContactForm({ lang }: ContactFormProps) {
 
         <div className={styles.field}>
           <label htmlFor="email" className={styles.label}>
-            {form.email.label[lang]}
+            {t('sections.contact.form.email.label')}
           </label>
           <input
             type="email"
@@ -126,7 +126,7 @@ export function ContactForm({ lang }: ContactFormProps) {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder={form.email.placeholder[lang]}
+            placeholder={t('sections.contact.form.email.placeholder')}
             className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
             disabled={status === 'loading'}
           />
@@ -136,7 +136,7 @@ export function ContactForm({ lang }: ContactFormProps) {
 
       <div className={styles.field}>
         <label htmlFor="subject" className={styles.label}>
-          {form.subject.label[lang]}
+          {t('sections.contact.form.subject.label')}
         </label>
         <input
           type="text"
@@ -144,7 +144,7 @@ export function ContactForm({ lang }: ContactFormProps) {
           name="subject"
           value={formData.subject}
           onChange={handleChange}
-          placeholder={form.subject.placeholder[lang]}
+          placeholder={t('sections.contact.form.subject.placeholder')}
           className={`${styles.input} ${errors.subject ? styles.inputError : ''}`}
           disabled={status === 'loading'}
         />
@@ -155,14 +155,14 @@ export function ContactForm({ lang }: ContactFormProps) {
 
       <div className={styles.field}>
         <label htmlFor="message" className={styles.label}>
-          {form.message.label[lang]}
+          {t('sections.contact.form.message.label')}
         </label>
         <textarea
           id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
-          placeholder={form.message.placeholder[lang]}
+          placeholder={t('sections.contact.form.message.placeholder')}
           rows={6}
           className={`${styles.textarea} ${errors.message ? styles.inputError : ''}`}
           disabled={status === 'loading'}
@@ -183,7 +183,7 @@ export function ContactForm({ lang }: ContactFormProps) {
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
             <polyline points="22 4 12 14.01 9 11.01" />
           </svg>
-          <span>{form.success[lang]}</span>
+          <span>{t('sections.contact.form.success')}</span>
         </div>
       )}
 
@@ -199,7 +199,7 @@ export function ContactForm({ lang }: ContactFormProps) {
             <line x1="15" y1="9" x2="9" y2="15" />
             <line x1="9" y1="9" x2="15" y2="15" />
           </svg>
-          <span>{form.error[lang]}</span>
+          <span>{t('sections.contact.form.error')}</span>
         </div>
       )}
 
@@ -211,7 +211,7 @@ export function ContactForm({ lang }: ContactFormProps) {
         {status === 'loading' ? (
           <>
             <span className={styles.spinner} />
-            {form.sending[lang]}
+            {t('sections.contact.form.sending')}
           </>
         ) : (
           <>
@@ -224,7 +224,7 @@ export function ContactForm({ lang }: ContactFormProps) {
               <line x1="22" y1="2" x2="11" y2="13" />
               <polygon points="22 2 15 22 11 13 2 9 22 2" />
             </svg>
-            {form.submit[lang]}
+            {t('sections.contact.form.submit')}
           </>
         )}
       </button>

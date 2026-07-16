@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { ProjectItemProps } from '../types'
-import { sections } from '@/dictionaries/sections'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import styles from './projectItem.module.css'
 import { getProjectUrl } from '@/lib/route-helper'
 export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
-  const t = sections.projectsSection.card
+  const t = useT()
 
   const formatDuration = () => {
     if (!project.startDate) return null
@@ -21,7 +21,7 @@ export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
     )
 
     if (!end) {
-      return `${startStr} - ${t.ongoing[lang]}`
+      return `${startStr} - ${t('sections.projectsSection.card.ongoing')}`
     }
 
     const endStr = end.toLocaleDateString(lang === 'pl' ? 'pl-PL' : 'en-US', {
@@ -48,13 +48,16 @@ export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
         {project.status && (
           <span className={styles.statusBadge} data-status={project.status}>
             {project.status === 'in-progress'
-              ? t.status.inProgress[lang]
-              : t.status.completed[lang]}
+              ? t('sections.projectsSection.card.status.inProgress')
+              : t('sections.projectsSection.card.status.completed')}
           </span>
         )}
 
         {project.highlight && (
-          <span className={styles.highlightBadge} title={t.featured[lang]}>
+          <span
+            className={styles.highlightBadge}
+            title={t('sections.projectsSection.card.featured')}
+          >
             ★
           </span>
         )}
@@ -90,7 +93,7 @@ export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
         <div className={styles.cardLinks}>
           <Link href={projectUrl} className={styles.cardLink}>
             <p>
-              <b>{t.readMore[lang]} →</b>
+              <b>{t('sections.projectsSection.card.readMore')} →</b>
             </p>
           </Link>
 
@@ -101,7 +104,7 @@ export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
               rel="noopener noreferrer"
               className={styles.cardLinkSecondary}
             >
-              <small>{t.github[lang]}</small>
+              <small>{t('sections.projectsSection.card.github')}</small>
             </a>
           )}
 
@@ -112,7 +115,7 @@ export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
               rel="noopener noreferrer"
               className={styles.cardLinkSecondary}
             >
-              <small>{t.liveDemo[lang]}</small>
+              <small>{t('sections.projectsSection.card.liveDemo')}</small>
             </a>
           )}
         </div>

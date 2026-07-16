@@ -3,16 +3,16 @@ import Image from 'next/image'
 import styles from './aboutSection.module.css'
 import { SectionHeader } from '@/components/Header/SectionHeader'
 import { Locale } from '@/lib/i18n-config'
-import { common } from '@/dictionaries/common'
-import { aboutData } from '@/data/aboutmeData'
-import { sections } from '@/dictionaries/sections'
+import { getT } from '@/lib/data/translations'
 import { Nest } from '@/components/FollowerSystem'
 
 interface AboutSectionProps {
   lang: Locale
 }
 
-export default function AboutSection({ lang }: AboutSectionProps) {
+export default async function AboutSection({ lang }: AboutSectionProps) {
+  const t = await getT(lang)
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -26,13 +26,13 @@ export default function AboutSection({ lang }: AboutSectionProps) {
             reverseColors={true}
             lang={lang}
           >
-            <SectionHeader decoration={sections.homeAbout.title[lang]}>
-              {sections.homeAbout.subtitle[lang]}
+            <SectionHeader decoration={t('sections.homeAbout.title')}>
+              {t('sections.homeAbout.subtitle')}
             </SectionHeader>
           </Nest>
 
           <blockquote className={styles.quote}>
-            <h3>{aboutData.quote[lang]}</h3>
+            <h3>{t('about.quote')}</h3>
           </blockquote>
         </div>
 
@@ -40,7 +40,7 @@ export default function AboutSection({ lang }: AboutSectionProps) {
           <div className={styles.imageFrame}>
             <Image
               src="/me.jpg"
-              alt={aboutData.imageAlt[lang]}
+              alt={t('about.imageAlt')}
               fill
               className={styles.image}
               loading="lazy"
@@ -53,12 +53,12 @@ export default function AboutSection({ lang }: AboutSectionProps) {
         <div className={`contrast ${styles.rightColumn}`}>
           <div className={styles.titleBlock}>
             <small className={styles.greeting}>
-              {sections.homeAbout.greeting[lang]}
+              {t('sections.homeAbout.greeting')}
             </small>
-            <h2 className={styles.name}>{common.credentials.name}</h2>
+            <h2 className={styles.name}>{t('common.credentials.name')}</h2>
             <p className={styles.role}>
               <span className={styles.roleTag}>&lt;</span>
-              <span>{aboutData.title[lang]}</span>
+              <span>{t('about.title')}</span>
               <span className={styles.roleTag}>/&gt;</span>
             </p>
           </div>
@@ -67,12 +67,12 @@ export default function AboutSection({ lang }: AboutSectionProps) {
 
           <p
             className={styles.description}
-            dangerouslySetInnerHTML={{ __html: aboutData.description[lang] }}
+            dangerouslySetInnerHTML={{ __html: t('about.description') }}
           />
 
           <div className={styles.availability}>
             <span className={styles.availabilityDot} />
-            <small>{sections.homeAbout.availability[lang]}</small>
+            <small>{t('sections.homeAbout.availability')}</small>
           </div>
         </div>
       </div>

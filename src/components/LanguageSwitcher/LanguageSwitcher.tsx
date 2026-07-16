@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { Locale } from '@/lib/i18n-config'
 import { switchLanguageUrl } from '@/lib/route-helper'
+import { useProjectSlugs } from '@/providers/ProjectSlugs/ProjectSlugsProvider'
 import styles from './LanguageSwitcher.module.css'
 
 interface LanguageSwitcherProps {
@@ -13,8 +14,9 @@ export default function LanguageSwitcher({
   currentLang,
 }: LanguageSwitcherProps) {
   const pathname = usePathname()
+  const projectSlugs = useProjectSlugs()
   const otherLang: Locale = currentLang === 'pl' ? 'en' : 'pl'
-  const switchLangUrl = switchLanguageUrl(pathname, otherLang)
+  const switchLangUrl = switchLanguageUrl(pathname, otherLang, projectSlugs)
 
   return (
     <Link

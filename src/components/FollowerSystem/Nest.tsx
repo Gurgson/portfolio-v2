@@ -3,7 +3,7 @@
 import { useRef, useCallback, useState, useEffect } from 'react'
 import { useFollowerContext } from './FollowerContext'
 import type { NestProps } from '../../types/Follower'
-import { common } from '@/dictionaries/common'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import styles from './follower.module.css'
 
 export default function Nest({
@@ -17,6 +17,7 @@ export default function Nest({
   lang = 'pl',
 }: NestProps) {
   const { state, dispatch } = useFollowerContext()
+  const t = useT()
   const elementRef = useRef<HTMLDivElement | null>(null)
   const stateRef = useRef(state)
   const [currentMessageIndex, setCurrentMessageIndex] = useState<number | null>(
@@ -223,7 +224,9 @@ export default function Nest({
             draggable={false}
             role={messages.length > 0 ? 'button' : undefined}
             tabIndex={messages.length > 0 ? 0 : undefined}
-            aria-label={messages.length > 0 ? common.follower.showMessage[lang] : undefined}
+            aria-label={
+              messages.length > 0 ? t('common.follower.showMessage') : undefined
+            }
             onClick={messages.length > 0 ? handleImageClick : undefined}
             onKeyDown={messages.length > 0 ? handleImageKeyDown : undefined}
           />

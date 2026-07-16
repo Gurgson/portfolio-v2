@@ -7,14 +7,14 @@ import { getPageUrl, getPageName } from '@/lib/route-helper'
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher'
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher'
 import { Locale } from '@/lib/i18n-config'
-import { navigation } from '@/dictionaries/navigation'
-import { common } from '@/dictionaries/common'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 
 interface NavigationProps {
   lang: Locale
 }
 
 export default function Navigation({ lang }: NavigationProps) {
+  const t = useT()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
@@ -59,7 +59,7 @@ export default function Navigation({ lang }: NavigationProps) {
           className={styles.link}
           prefetch={true}
         >
-          {navigation.homePage[lang]}
+          {t('navigation.homePage')}
         </Link>
 
         <Link
@@ -67,7 +67,7 @@ export default function Navigation({ lang }: NavigationProps) {
           className={styles.link}
           prefetch={true}
         >
-          {navigation.recommendationsPage[lang]}
+          {t('navigation.recommendationsPage')}
         </Link>
 
         <Link
@@ -75,18 +75,18 @@ export default function Navigation({ lang }: NavigationProps) {
           className={styles.link}
           prefetch={true}
         >
-          {navigation.contactPage[lang]}
+          {t('navigation.contactPage')}
         </Link>
       </div>
 
       <div className={styles.controls}>
-        <ThemeSwitcher lang={lang} />
+        <ThemeSwitcher />
         <LanguageSwitcher currentLang={lang} />
 
         <button
           className={`${styles.burger} ${isMenuOpen ? styles.burgerOpen : ''}`}
           onClick={toggleMenu}
-          aria-label={common.navigation.toggleMenu[lang]}
+          aria-label={t('common.navigation.toggleMenu')}
           aria-expanded={isMenuOpen}
         >
           <span></span>
@@ -103,7 +103,7 @@ export default function Navigation({ lang }: NavigationProps) {
         <button
           className={styles.closeButton}
           onClick={closeMenu}
-          aria-label={common.navigation.closeMenu[lang]}
+          aria-label={t('common.navigation.closeMenu')}
         >
           ×
         </button>
@@ -115,7 +115,7 @@ export default function Navigation({ lang }: NavigationProps) {
             prefetch={true}
             onClick={closeMenu}
           >
-            {navigation.homePage[lang]}
+            {t('navigation.homePage')}
           </Link>
 
           <Link
@@ -124,7 +124,7 @@ export default function Navigation({ lang }: NavigationProps) {
             prefetch={true}
             onClick={closeMenu}
           >
-            {navigation.recommendationsPage[lang]}
+            {t('navigation.recommendationsPage')}
           </Link>
 
           <Link
@@ -133,7 +133,7 @@ export default function Navigation({ lang }: NavigationProps) {
             prefetch={true}
             onClick={closeMenu}
           >
-            {navigation.contactPage[lang]}
+            {t('navigation.contactPage')}
           </Link>
         </div>
       </div>

@@ -229,6 +229,36 @@ a.infoValue:hover {
   margin-bottom: 1.5rem;
 }
 
+/* Light theme: karty są nasycone-zielone (var(--color-secondary)) ->
+   generyczny tekst muted/primary ma za mały kontrast. Wymuszamy jasny tekst. */
+[data-theme='light'] .cardTitle,
+[data-theme='light'] .formTitle,
+[data-theme='light'] .infoValue {
+  color: #ffffff;
+}
+
+[data-theme='light'] .infoLabel {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+[data-theme='light'] .infoIcon {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+[data-theme='light'] .infoIcon svg {
+  color: #ffffff;
+}
+
+[data-theme='light'] .socialLink {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+[data-theme='light'] .socialLink:hover {
+  background-color: #ffffff;
+  color: #047857;
+}
+
 @media (max-width: 900px) {
   .content {
     grid-template-columns: 1fr;

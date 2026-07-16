@@ -1,5 +1,4 @@
 import { Locale } from './i18n-config'
-import { projects } from '@/data/projects'
 
 export const routes: Record<string, Record<Locale, string>> = {
   home: {
@@ -31,21 +30,6 @@ export function getProjectUrl(slug: string, lang: Locale): string {
   return `/${lang}/project/${slug}`
 }
 
-export function getProjectUrlById(id: number, lang: Locale): string {
-  const project = projects.find((p) => p.id === id)
-  if (!project) {
-    return getPageUrl('home', lang)
-  }
-  return getProjectUrl(project.slug[lang], lang)
-}
-
-export function getProjectBySlug(
-  slug: string,
-  lang: Locale
-): (typeof projects)[0] | undefined {
-  return projects.find((project) => project.slug[lang] === slug)
-}
-
 export function getPageName(url: string): string | null {
   const normalizedUrl = url.replace(/\/$/, '')
 
@@ -74,7 +58,16 @@ export function getLangFromUrl(url: string): Locale | null {
   return match ? (match[1] as Locale) : null
 }
 
-export function switchLanguageUrl(currentUrl: string, newLang: Locale): string {
+/**
+ * URL po zmianie języka. Dla stron projektów mapuje slug między językami
+ * na podstawie przekazanej mapy (pl/en) — bez importu danych projektów
+ * (route-helper jest używany też po stronie klienta).
+ */
+export function switchLanguageUrl(
+  currentUrl: string,
+  newLang: Locale,
+  projectSlugs: { pl: string; en: string }[] = []
+): string {
   const normalizedUrl = currentUrl.replace(/\/$/, '')
   const currentLang = getLangFromUrl(normalizedUrl)
 
@@ -83,12 +76,9 @@ export function switchLanguageUrl(currentUrl: string, newLang: Locale): string {
   )
   if (projectMatch && currentLang) {
     const currentSlug = projectMatch[2]
-    const project = getProjectBySlug(currentSlug, currentLang)
-
-    if (project) {
-      return getProjectUrl(project.slug[newLang], newLang)
-    }
-    return getProjectUrl(currentSlug, newLang)
+    const entry = projectSlugs.find((s) => s[currentLang] === currentSlug)
+    const newSlug = entry ? entry[newLang] : currentSlug
+    return getProjectUrl(newSlug, newLang)
   }
 
   const pageName = getPageName(normalizedUrl)
@@ -97,36 +87,4 @@ export function switchLanguageUrl(currentUrl: string, newLang: Locale): string {
   }
 
   return getPageUrl('home', newLang)
-}
-
-export function isValidRoute(url: string, lang: Locale): boolean {
-  const normalizedUrl = url.replace(/\/$/, '')
-  const pageName = getPageName(normalizedUrl)
-
-  if (!pageName) {
-    return false
-  }
-
-  if (routes[pageName]?.[lang]) {
-    return true
-  }
-
-  if (pageName === 'project') {
-    const slug = getSlugFromUrl(normalizedUrl)
-    return slug ? !!getProjectBySlug(slug, lang) : false
-  }
-
-  return false
-}
-
-export function isValidProjectSlug(slug: string, lang: Locale): boolean {
-  return !!getProjectBySlug(slug, lang)
-}
-
-export function getAllProjectSlugs(lang: Locale): string[] {
-  return projects.map((project) => project.slug[lang])
-}
-
-export function getAllProjectUrls(lang: Locale): string[] {
-  return projects.map((project) => getProjectUrl(project.slug[lang], lang))
 }

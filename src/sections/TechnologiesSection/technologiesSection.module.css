@@ -58,10 +58,59 @@
 
 .lockIcon {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  font-size: 1rem;
-  animation: fadeIn 0.2s ease-out;
+  top: 0.4rem;
+  right: 0.4rem;
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+  transform-origin: 55% 90%;
+  animation: pinStab 0.5s cubic-bezier(0.3, 0.9, 0.35, 1.15) both;
+}
+
+/* Wbijanie: spada z góry (przechylona), z lekkim odbiciem. */
+@keyframes pinStab {
+  0% {
+    opacity: 0;
+    transform: translateY(-18px) rotate(-30deg) scale(1.2);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(3px) rotate(0deg) scale(1);
+  }
+  75% {
+    transform: translateY(-1px) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lockIcon {
+    animation: fadeIn 0.2s ease-out;
+  }
+}
+
+/* Pinezka w kolorach motywu (kontrast z kartą var(--color-secondary)) */
+.pinHeadFront {
+  fill: var(--color-accent);
+}
+.pinHeadBack {
+  fill: color-mix(in srgb, var(--color-accent) 60%, #000);
+}
+.pinNeedle {
+  fill: var(--color-text-secondary);
+}
+.pinNeedleShadow {
+  fill: color-mix(in srgb, var(--color-text-secondary) 55%, #000);
+}
+
+/* Light: accent (zielony) zlewałby się z zieloną kartą -> jaśniejsza główka */
+[data-theme='light'] .pinHeadFront {
+  fill: var(--color-highlight);
+}
+[data-theme='light'] .pinHeadBack {
+  fill: color-mix(in srgb, var(--color-highlight) 70%, #000);
 }
 
 .panel {

@@ -1,25 +1,22 @@
 'use client'
 
 import { useTheme } from '../../providers/Themes/ThemeProvider'
-import { common } from '@/dictionaries/common'
-import { Locale } from '@/lib/i18n-config'
+import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import styles from './ThemeSwitcher.module.css'
 
-interface ThemeSwitcherProps {
-  lang?: Locale
-}
-
-export default function ThemeSwitcher({ lang = 'pl' }: ThemeSwitcherProps) {
+export default function ThemeSwitcher() {
   const { theme, toggleTheme } = useTheme()
-  const t = common.theme
-  const targetMode = theme === 'light' ? t.dark[lang] : t.light[lang]
+  const t = useT()
+  const dark = t('common.theme.dark')
+  const light = t('common.theme.light')
+  const targetMode = theme === 'light' ? dark : light
 
   return (
     <button
       onClick={toggleTheme}
       className={styles.themeSwitcher}
-      aria-label={`${t.switchTo[lang]} ${targetMode}`}
-      title={`${t.current[lang]}: ${theme === 'light' ? t.light[lang] : t.dark[lang]}`}
+      aria-label={`${t('common.theme.switchTo')} ${targetMode}`}
+      title={`${t('common.theme.current')}: ${theme === 'light' ? light : dark}`}
     >
       {theme === 'light' ? (
         // Moon icon (dark mode)

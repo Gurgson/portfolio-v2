@@ -1,0 +1,20 @@
+# Automatyczny HTTPS (Let's Encrypt). Wymaga: rekordy DNS A na IP VPS + porty 80/443 otwarte.
+{
+	# Podmień na swój e-mail (powiadomienia Let's Encrypt).
+	email jaksta65@gmail.com
+}
+
+jstapinski.eu {
+	encode gzip zstd
+	reverse_proxy portfolio:3000
+}
+
+# Opcjonalny redirect www -> apex
+www.jstapinski.eu {
+	redir https://jstapinski.eu{uri}
+}
+
+czytnik.jstapinski.eu {
+	encode gzip zstd
+	reverse_proxy czytnik:8080
+}
