@@ -1,0 +1,16 @@
+.parallaxItem {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: var(--start);
+  left: 0;
+  z-index: var(--z-index);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}

@@ -1,0 +1,61 @@
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes flyIn {
+  0% {
+    opacity: 0;
+    transform: translate(-150px, -150px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.moon {
+  animation: flyIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  /* Statyczna poświata — animowany drop-shadow (blur) repaintuje co klatkę i mocno laguje. */
+  filter: drop-shadow(0 0 25px var(--color-moon-glow))
+    drop-shadow(0 0 50px var(--color-moon-glow));
+  display: block;
+}
+
+.sun {
+  animation: flyIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  filter: drop-shadow(0 0 30px var(--color-sun-glow))
+    drop-shadow(0 0 60px var(--color-sun-glow));
+  display: none;
+}
+
+:global(:root[data-theme='dark']) .moon {
+  display: block;
+}
+
+:global(:root[data-theme='dark']) .sun {
+  display: none;
+}
+
+:global(:root[data-theme='light']) .moon {
+  display: none;
+}
+
+:global(:root[data-theme='light']) .sun {
+  display: block;
+}
+
+:global(.moon-path) {
+  fill: var(--color-moon);
+  transition: fill 0.5s ease;
+}
+
+:global(.moon-detail) {
+  fill: var(--color-moon-detail);
+}
+
+:global(.sun-circle) {
+  fill: var(--color-warning);
+  transition: fill 0.6s ease;
+}

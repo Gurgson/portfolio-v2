@@ -1,0 +1,47 @@
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+:global(.gradient-stop-1) {
+  stop-color: var(--color-muted);
+}
+
+:global(.gradient-stop-2) {
+  stop-color: var(--color-secondary);
+}
+
+:global(.gradient-stop-3) {
+  stop-color: var(--color-highlight);
+}
+
+:global(.gradient-stop-4) {
+  stop-color: var(--color-muted);
+}
+
+:global(html[data-theme='light']) :global(.gradient-stop-1) {
+  stop-color: var(--color-muted);
+}
+
+:global(html[data-theme='light']) :global(.gradient-stop-2) {
+  stop-color: var(--color-secondary);
+}
+
+:global(html[data-theme='light']) :global(.gradient-stop-3) {
+  stop-color: var(--color-highlight);
+}
+
+:global(html[data-theme='light']) :global(.gradient-stop-4) {
+  stop-color: var(--color-muted);
+}
+:global(.house-door),
+:global(.house-window) {
+  fill: #fbbf24;
+  transition: fill 0.3s ease;
+}
+
+:global(html[data-theme='light']) :global(.house-door),
+:global(html[data-theme='light']) :global(.house-window) {
+  fill: #000000;
+}

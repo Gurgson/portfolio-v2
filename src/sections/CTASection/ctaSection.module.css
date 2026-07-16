@@ -1,0 +1,348 @@
+.section {
+  position: relative;
+  padding: 6rem 5%;
+  background-color: var(--color-primary);
+  overflow: hidden;
+}
+
+.backgroundPattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    var(--color-highlight) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+}
+
+.title {
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.description {
+  color: var(--color-text-secondary);
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+}
+
+/* ========== LIGHT MODE FIXES ========== */
+:global([data-theme='light']) .eyebrow {
+  color: #064e3b; /* Ciemniejszy zielony - lepiej widoczny */
+}
+
+:global([data-theme='light']) .title {
+  color: #ffffff; /* Biały tytuł na zielonym tle */
+}
+
+:global([data-theme='light']) .description {
+  color: #d1fae5; /* Jasny zielony - widoczny na zielonym */
+}
+
+/* ========== Przyciski ========== */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.buttonArrow {
+  transition: transform 0.3s ease;
+}
+
+.primaryButton:hover .buttonArrow {
+  transform: translateX(5px);
+}
+
+/* Light mode: biały przycisk */
+:global([data-theme='light']) .primaryButton {
+  background-color: #ffffff;
+  color: #065f46;
+}
+
+:global([data-theme='light']) .primaryButton:hover {
+  background-color: #f0fdf4;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  border: 1px solid var(--color-highlight);
+  border-radius: 0.5rem;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.secondaryButton:hover {
+  background-color: var(--color-highlight);
+  border-color: var(--color-text-muted);
+}
+
+:global([data-theme='light']) .secondaryButton {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+:global([data-theme='light']) .secondaryButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+/* ========== EXTRAS - Karty z numeracją ========== */
+.extras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.extraItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  min-width: 180px;
+  background: var(--color-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--color-highlight);
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.extraItem:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-muted);
+}
+
+.extraItem::before {
+  content: attr(data-number);
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text-primary);
+  opacity: 0.08;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.extraItem:hover::before {
+  opacity: 0.15;
+}
+
+.extraIcon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  opacity: 0.9;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+
+.extraItem:hover .extraIcon {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* Light mode: białe ikony na ciemnym tle kart */
+:global([data-theme='light']) .extraIcon {
+  filter: brightness(0) invert(1);
+}
+
+/* Dark mode: czarne ikony na jasnym tle kart */
+:global([data-theme='dark']) .extraIcon {
+  filter: none;
+}
+
+.extraLabel {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Decoration ========== */
+.decoration {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.decorCircle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--color-highlight);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.decorCircle:nth-child(1) {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  animation-delay: 0s;
+}
+
+.decorCircle:nth-child(2) {
+  width: 70%;
+  height: 70%;
+  top: 15%;
+  left: 15%;
+  animation-delay: 0.5s;
+}
+
+.decorCircle:nth-child(3) {
+  width: 40%;
+  height: 40%;
+  top: 30%;
+  left: 30%;
+  background-color: var(--color-accent);
+  border: none;
+  animation-delay: 1s;
+}
+
+/* Light mode: lepiej widoczne kółka */
+:global([data-theme='light']) .decorCircle {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+:global([data-theme='light']) .decorCircle:nth-child(3) {
+  background-color: #ffffff;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .description {
+    max-width: 100%;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .extras {
+    justify-content: center;
+  }
+
+  .extraItem {
+    align-items: center;
+    text-align: center;
+  }
+
+  .decoration {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .section {
+    padding: 4rem 4%;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .extras {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .extraItem {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .decoration {
+    display: none;
+  }
+}

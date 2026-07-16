@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1080" height="300" viewBox="0 0 1080 440">
+  <style>
+    .cloud { fill: white; opacity: 0.92; }
+    .cloud-soft { fill: white; opacity: 0.85; }
+
+    @keyframes drift1 { 0%{transform:translate(-400px,40px);} 100%{transform:translate(1400px,40px);} }
+    @keyframes drift2 { 0%{transform:translate(-480px,110px);} 100%{transform:translate(1400px,110px);} }
+    @keyframes drift3 { 0%{transform:translate(-380px,200px);} 100%{transform:translate(1400px,200px);} }
+    @keyframes drift4 { 0%{transform:translate(-520px,270px);} 100%{transform:translate(1400px,270px);} }
+
+    @keyframes bobSoft { 0%{transform:translateY(0);} 50%{transform:translateY(-6px);} 100%{transform:translateY(0);} }
+    @keyframes bobStrong { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+
+    .c1 { animation: drift1 40s linear infinite; }
+    .c1 .shape { animation: bobSoft 6s ease-in-out infinite; }
+
+    .c2 { animation: drift2 55s linear infinite; }
+    .c2 .shape { animation: bobStrong 8s ease-in-out infinite; }
+
+    .c3 { animation: drift3 34s linear infinite; }
+    .c3 .shape { animation: bobSoft 5.3s ease-in-out infinite; }
+
+    .c4 { animation: drift4 60s linear infinite; }
+    .c4 .shape { animation: bobStrong 9s ease-in-out infinite; }
+
+  </style>
+
+  <defs>
+
+
+
+  <g class="cloud c1">
+    <g class="shape">
+      <path d="M40 60
+               C70 40 120 40 150 55
+               C190 45 230 55 240 75
+               C220 95 120 100 60 85
+               C40 80 30 70 40 60z"/>
+    </g>
+  </g>
+
+  <g class="cloud c2">
+    <g class="shape">
+      <path d="M140 120
+               c-20 -25 -70 -25 -90 5
+               c-20 25 0 55 60 55
+               c55 0 75 -25 60 -50
+               c-10 -20 -30 -25 -30 -10z"/>
+    </g>
+  </g>
+
+  <g class="cloud c3">
+    <g class="shape">
+      <path d="M20 200
+               c60 -20 120 -10 170 10
+               c40 -10 70 -5 100 10
+               c-10 15 -80 25 -160 10
+               c-60 10 -130 0 -110 -40z"/>
+    </g>
+  </g>
+
+  <g class="cloud c4">
+    <g class="shape">
+      <path d="M460 320
+               c-20 -30 -70 -40 -95 -20
+               c-20 -30 -70 -30 -95 0
+               c-20 20 -15 50 15 65
+               c60 30 155 25 175 -20z"/>
+    </g>
+  </g>
+</svg>

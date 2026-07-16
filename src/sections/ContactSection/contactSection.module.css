@@ -1,0 +1,271 @@
+.section {
+  padding: 5rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================
+   HERO
+   ========================================== */
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  margin-bottom: 0.75rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.infoCard {
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-highlight);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.cardTitle {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.infoIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-highlight);
+  border-radius: 0.625rem;
+  flex-shrink: 0;
+}
+
+.infoIcon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.infoValue {
+  font-size: 0.9em;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a.infoValue:hover {
+  color: var(--color-accent);
+}
+
+/* Social Links */
+.socialLinks {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--color-highlight);
+  border-radius: 0.5rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+.socialLink:hover {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Availability */
+.availabilityCard {
+  background: var(--gradient-accent);
+  border: 1px solid var(--color-highlight);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.availabilityHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+}
+
+.availabilityDot {
+  width: 10px;
+  height: 10px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+[data-theme='light'] .availabilityDot {
+  background-color: #059669;
+  box-shadow: 0 0 8px rgba(5, 150, 105, 0.6);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.15);
+  }
+}
+
+.availabilityTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.availabilityText {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.responseTime {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.formSection {
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-highlight);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.formTitle {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    order: 2;
+  }
+
+  .formSection {
+    order: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero {
+    margin-bottom: 2.5rem;
+  }
+
+  .formSection {
+    padding: 1.5rem;
+  }
+
+  .socialLinks {
+    flex-direction: column;
+  }
+
+  .socialLink {
+    justify-content: center;
+  }
+}

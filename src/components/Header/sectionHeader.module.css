@@ -1,0 +1,47 @@
+.header {
+  position: relative;
+  text-align: center;
+  cursor: default;
+  margin: 5rem 0 5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.decoration {
+  font-family: var(--font-script);
+  transform: rotate(-5deg);
+  font-size: 75%;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.mainWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.main {
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.underline {
+  position: absolute;
+  bottom: -0.2rem;
+  left: 10%;
+  width: 110%;
+  height: 1.2rem;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.underlinePath {
+  stroke-dasharray: 250;
+  stroke-dashoffset: 250;
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.header:hover .underlinePath {
+  stroke-dashoffset: 0;
+}

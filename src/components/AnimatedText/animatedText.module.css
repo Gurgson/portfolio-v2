@@ -1,0 +1,52 @@
+/* AnimatedText.module.css */
+.animatedText {
+  /* brak display - dziedziczy z klasy block/inline */
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.cursor {
+  display: inline;
+  animation: blink 0.8s infinite;
+  color: var(--color-highlight, #2a3a5f);
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Slide animation */
+.slide {
+  opacity: 0;
+  transform: var(--slide-transform);
+  transition:
+    opacity var(--slide-duration) ease-out,
+    transform var(--slide-duration) ease-out;
+}
+
+.slide.block {
+  display: block;
+}
+
+.slide.inline {
+  display: inline-block; /* inline nie wspiera transform */
+}
+
+.slideVisible {
+  opacity: 1;
+  transform: translate(0);
+}

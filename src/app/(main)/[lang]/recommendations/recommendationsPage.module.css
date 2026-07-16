@@ -1,0 +1,403 @@
+.pageWrapper {
+  background-color: var(--color-background);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 80px auto 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--color-highlight);
+}
+
+.heroContent {
+  flex: 1;
+  max-width: 600px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.description {
+  font-size: clamp(1.5rem, 2.5vw, 1.8rem);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.heroDecoration {
+  flex-shrink: 0;
+}
+
+.quoteIcon {
+  width: 120px;
+  height: 120px;
+  color: var(--color-highlight);
+  opacity: 0.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  background: var(--color-primary);
+  border: 1px solid var(--color-highlight);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  animation: fadeInUp 0.6s ease backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-accent);
+}
+
+/* Quote mark */
+.cardQuote {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-accent);
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .cardQuote {
+  opacity: 0.6;
+}
+
+.cardQuote svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Card number */
+.cardNumber {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  opacity: 0.05;
+  line-height: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .cardNumber {
+  opacity: 0.1;
+}
+
+/* Description / Quote */
+.cardDescription {
+  flex: 1;
+  font-size: clamp(1.4rem, 2vw, 1.6rem);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0 0 2rem 0;
+  padding: 0;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-highlight);
+}
+
+/* Author info */
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.authorAvatar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-highlight);
+  color: var(--color-text-primary);
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.companyName {
+  font-size: clamp(1.4rem, 2vw, 1.6rem);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.authorName {
+  font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+  color: var(--color-text-muted);
+}
+
+/* Action buttons row */
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Preview button */
+.previewButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 1.3rem;
+  font-weight: 500;
+  border: 1px solid var(--color-highlight);
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
+  z-index: 4;
+}
+
+.previewButton svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.previewButton:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+  background-color: var(--color-highlight);
+}
+
+.previewButton:active {
+  transform: translateY(0);
+}
+
+/* PDF preview embed */
+.pdfPreview {
+  display: block;
+  margin: 0 0 1.5rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--color-highlight);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pdfPreview:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.pdfImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Download button */
+.downloadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-accent);
+  color: var(--color-secondary);
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+  z-index: 4;
+}
+
+.downloadButton svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.downloadButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  filter: brightness(1.1);
+}
+
+.downloadButton:active {
+  transform: translateY(0);
+}
+
+.bottomDecoration {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.decorLine {
+  width: 100px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .quoteIcon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 3rem 1rem 4rem;
+  }
+
+  .hero {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .card {
+    padding: 2rem 1.5rem;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .cardActions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .previewButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .downloadButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .quoteIcon {
+    display: none;
+  }
+
+  .cardQuote {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .cardNumber {
+    font-size: 3rem;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.emptyTitle {
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.emptyDescription {
+  font-size: clamp(1.4rem, 2vw, 1.6rem);
+  color: var(--color-text-muted);
+}

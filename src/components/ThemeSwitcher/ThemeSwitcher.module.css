@@ -1,0 +1,30 @@
+.themeSwitcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-highlight);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.themeSwitcher:hover {
+  background: var(--color-accent);
+  color: var(--color-background);
+  transform: rotate(180deg) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.themeSwitcher:active {
+  transform: rotate(180deg) scale(0.95);
+}
+
+.themeSwitcher svg {
+  width: 20px;
+  height: 20px;
+}

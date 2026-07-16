@@ -1,0 +1,11 @@
+.parallaxContainer {
+  position: relative;
+  width: 100%;
+  height: var(--height);
+  overflow: hidden;
+  background-color: var(--bg-color);
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}

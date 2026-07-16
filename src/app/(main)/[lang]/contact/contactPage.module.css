@@ -1,0 +1,266 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+a .description {
+  font-size: 1.1rem;
+  color: var(--text-muted, #6b7280);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.infoCard {
+  background-color: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, #111827);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.infoIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  border-radius: 0.625rem;
+  flex-shrink: 0;
+}
+
+.infoIcon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--primary-color);
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoLabel {
+  font-weight: 500;
+  color: var(--text-muted,);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.infoValue {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a.infoValue:hover {
+  color: var(--primary-color);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--social-bg, #f3f4f6);
+  border-radius: 0.5rem;
+  color: var(--text-primary, #374151);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+.socialLink:hover {
+  background-color: var(--primary-color, #3b82f6);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.availabilityCard {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 1px solid #a7f3d0;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.availabilityHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.75rem;
+}
+
+.availabilityDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.availabilityTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.availabilityText {
+  font-size: 0.9rem;
+  color: #047857;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.responseTime {
+  font-size: 0.8rem;
+  color: #059669;
+  margin: 0;
+}
+
+.formSection {
+  background-color: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.formTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary, #111827);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    order: 2;
+  }
+
+  .formSection {
+    order: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .hero {
+    margin-bottom: 2.5rem;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .formSection {
+    padding: 1.5rem;
+  }
+
+  .socialLinks {
+    flex-direction: column;
+  }
+
+  .socialLink {
+    justify-content: center;
+  }
+}
