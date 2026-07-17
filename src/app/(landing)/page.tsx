@@ -4,6 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getDictionary, createTranslator } from '@/lib/data/translations'
 
+// Treść z DB -> renderuj na żądanie (nie prerenderuj przy buildzie bez bazy).
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Choose language',
   robots: {
