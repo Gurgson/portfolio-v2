@@ -1,5 +1,7 @@
 'use server'
 
+import nodemailer from 'nodemailer'
+
 import { CONTACT_INFO, PERSONAL_INFO } from '../contants'
 
 // Types
@@ -65,24 +67,45 @@ export async function sendContactEmail(
       message: data.message.trim(),
     }
 
-    // TODO: Implement actual email sending with Google SMTP
-    // For now, this is a mockup that simulates the email sending process
+    // Wysyłka przez Gmail SMTP (nodemailer). Sekrety tylko w .env na VPS.
+    const gmailUser = process.env.GMAIL_USER
+    const gmailAppPassword = process.env.GMAIL_APP_PASSWORD
 
-    console.log('=== CONTACT FORM SUBMISSION ===')
-    console.log('To:', CONTACT_INFO.email)
-    console.log('From:', sanitizedData.email)
-    console.log('Name:', sanitizedData.name)
-    console.log('Subject:', sanitizedData.subject)
-    console.log('Message:', sanitizedData.message)
-    console.log('Timestamp:', new Date().toISOString())
-    console.log('===============================')
+    if (!gmailUser || !gmailAppPassword) {
+      console.error('Brak GMAIL_USER / GMAIL_APP_PASSWORD w env')
+      return {
+        success: false,
+        message: 'Email service is not configured',
+        error: 'Missing mail credentials',
+      }
+    }
 
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: gmailUser, pass: gmailAppPassword },
+    })
 
-    // Simulate success (in production, this would be the actual email sending)
-    // Uncomment below to test error handling:
-    // throw new Error('SMTP connection failed')
+    await transporter.sendMail({
+      // Gmail i tak nadpisze "from" na adres konta; nazwa nadawcy dla czytelności.
+      from: `"Portfolio — ${sanitizedData.name}" <${gmailUser}>`,
+      replyTo: sanitizedData.email,
+      to: CONTACT_INFO.email,
+      subject: `[Portfolio] ${sanitizedData.subject}`,
+      text: `Imię: ${sanitizedData.name}
+Email: ${sanitizedData.email}
+Temat: ${sanitizedData.subject}
+
+Wiadomość:
+${sanitizedData.message}`,
+      html: `
+        <h2>Nowa wiadomość z formularza</h2>
+        <p><strong>Imię:</strong> ${sanitizedData.name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${sanitizedData.email}">${sanitizedData.email}</a></p>
+        <p><strong>Temat:</strong> ${sanitizedData.subject}</p>
+        <hr />
+        <p>${sanitizedData.message.replace(/\n/g, '<br>')}</p>
+      `,
+    })
 
     return {
       success: true,
@@ -98,44 +121,3 @@ export async function sendContactEmail(
     }
   }
 }
-
-// Future implementation with nodemailer + Google SMTP:
-/*
-import nodemailer from 'nodemailer'
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD, // Use App Password, not regular password
-  },
-})
-
-async function sendEmailWithNodemailer(data: ContactFormData) {
-  const mailOptions = {
-    from: `"${data.name}" <${process.env.GMAIL_USER}>`,
-    replyTo: data.email,
-    to: CONTACT_INFO.email,
-    subject: `[Portfolio Contact] ${data.subject}`,
-    text: `
-Name: ${data.name}
-Email: ${data.email}
-Subject: ${data.subject}
-
-Message:
-${data.message}
-    `,
-    html: `
-      <h2>New Contact Form Submission</h2>
-      <p><strong>Name:</strong> ${data.name}</p>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Subject:</strong> ${data.subject}</p>
-      <hr />
-      <h3>Message:</h3>
-      <p>${data.message.replace(/\n/g, '<br>')}</p>
-    `,
-  }
-
-  await transporter.sendMail(mailOptions)
-}
-*/
