@@ -38,7 +38,9 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Pomiń wszystkie wewnętrzne ścieżki Next.js
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    // Pomiń wewnętrzne ścieżki Next.js ORAZ pliki statyczne (ścieżki z kropką,
+    // np. /bird-spawn.png, /me.jpg, /hero/night/night-1.webp) — inaczej
+    // middleware przepisuje je na /pl/... i łapie catch-all not-found.
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)',
   ],
 }
