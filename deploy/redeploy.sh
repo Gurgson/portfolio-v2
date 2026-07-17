@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
-# Deploy portfolio na VPS: build obrazu + podmiana kontenera.
+# Deploy na VPS przez docker compose: Caddy (HTTPS) + portfolio (Next).
 # Kod aktualizuje wcześniej workflow (git fetch/reset) albo ręcznie (git pull).
 set -euo pipefail
 
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")" # -> deploy/
 
-echo ">> building image..."
-docker build -t portfolio .
-
-echo ">> recreating container..."
+# Usuń stary, samodzielny kontener z fazy bez Caddy (trzymał port 80), jeśli jest.
 docker rm -f portfolio 2>/dev/null || true
-docker run -d --name portfolio --restart unless-stopped \
-  -p 80:3000 --env-file .env portfolio
+
+echo ">> compose up (build)..."
+docker compose up -d --build
 
 docker image prune -f >/dev/null 2>&1 || true
-echo ">> done."
+echo ">> deployed."
