@@ -3,6 +3,7 @@ import '@/css/globals.css'
 import { ThemeScript } from '@/providers/Themes/ThemeScript'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://jstapinski.eu'),
   title: {
     default: 'Jakub Stapiński - Portfolio',
     template: '%s | Jakub Stapiński - Portfolio',
