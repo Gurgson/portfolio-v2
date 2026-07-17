@@ -1,33 +1,20 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Locale } from '@/lib/i18n-config'
-import { getProjectBySlug, getProjects } from '@/lib/data/projects'
+import { getProjectBySlug } from '@/lib/data/projects'
 import styles from './projectPage.module.css'
+
+// Zawsze render na żądanie. Layout [lang] czyta ciasteczko motywu (cookies()),
+// więc trasa jest z natury dynamiczna. Bez tego Next próbuje generacji
+// statycznej on-demand i wywala DYNAMIC_SERVER_USAGE w produkcji (Node 22),
+// gdy generateStaticParams nie miało DB przy buildzie.
+export const dynamic = 'force-dynamic'
 
 interface ProjectPageProps {
   params: Promise<{
     lang: string
     slug: string
   }>
-}
-
-export async function generateStaticParams() {
-  try {
-    const locales: Locale[] = ['en', 'pl']
-    const params: { lang: Locale; slug: string }[] = []
-    const projects = await getProjects()
-
-    for (const lang of locales) {
-      for (const project of projects) {
-        params.push({ lang, slug: project.slug[lang] })
-      }
-    }
-
-    return params
-  } catch {
-    // Brak DB przy buildzie (np. kontener bez DATABASE_URL) -> strony on-demand.
-    return []
-  }
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {
