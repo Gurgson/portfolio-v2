@@ -5,6 +5,7 @@ import TechnologiesSection from '@/sections/TechnologiesSection/TechnologiesSect
 import AboutSection from '@/sections/AboutSection/AboutSection'
 import { ProjectsSection } from '@/sections/ProjectsSection'
 import { getProjects } from '@/lib/data/projects'
+import { getTechGroups } from '@/lib/data/tech'
 import { techs } from '@/data/technologies'
 import CTASection from '@/sections/CTASection/CTASection'
 
@@ -15,6 +16,7 @@ interface HomePageProps {
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = (await params) as { lang: Locale }
   const projects = await getProjects()
+  const techGroups = await getTechGroups()
 
   return (
     <>
@@ -23,7 +25,7 @@ export default async function HomePage({ params }: HomePageProps) {
       </header>
       <main>
         <AboutSection lang={lang} />
-        <TechnologiesSection lang={lang} />
+        <TechnologiesSection lang={lang} groups={techGroups} />
         <ProjectsSection
           projects={projects}
           lang={lang}

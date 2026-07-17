@@ -12,17 +12,22 @@ interface ProjectPageProps {
 }
 
 export async function generateStaticParams() {
-  const locales: Locale[] = ['en', 'pl']
-  const params: { lang: Locale; slug: string }[] = []
-  const projects = await getProjects()
+  try {
+    const locales: Locale[] = ['en', 'pl']
+    const params: { lang: Locale; slug: string }[] = []
+    const projects = await getProjects()
 
-  for (const lang of locales) {
-    for (const project of projects) {
-      params.push({ lang, slug: project.slug[lang] })
+    for (const lang of locales) {
+      for (const project of projects) {
+        params.push({ lang, slug: project.slug[lang] })
+      }
     }
-  }
 
-  return params
+    return params
+  } catch {
+    // Brak DB przy buildzie (np. kontener bez DATABASE_URL) -> strony on-demand.
+    return []
+  }
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {

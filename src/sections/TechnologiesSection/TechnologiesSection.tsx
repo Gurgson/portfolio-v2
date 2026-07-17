@@ -2,16 +2,16 @@
 
 import { useState } from 'react'
 import { SectionHeader } from '@/components/Header/SectionHeader'
-import { Technology } from '@/types/Technology'
+import { Technology, TechnologyGroup } from '@/types/Technology'
 import Image from 'next/image'
 import styles from './technologiesSection.module.css'
-import { technologiesData, TechnologyGroup } from '@/data/technlogiesData'
 import { Locale, Localized } from '@/lib/i18n-config'
 import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import { getIconUrlOriginal } from '@/lib/technologies-helper'
 
 interface TechnologiesSectionProps {
   lang: Locale
+  groups: TechnologyGroup[]
 }
 
 export function isTechnologyArray(items: unknown[]): items is Technology[] {
@@ -36,6 +36,7 @@ const getItems = (
 
 export default function TechnologiesSection({
   lang,
+  groups,
 }: TechnologiesSectionProps) {
   const [activeGroup, setActiveGroup] = useState<TechnologyGroup | null>(null)
   const [lockedGroup, setLockedGroup] = useState<TechnologyGroup | null>(null)
@@ -60,7 +61,7 @@ export default function TechnologiesSection({
       {/* Desktop view */}
       <div className={styles.desktopView}>
         <div className={styles.cards}>
-          {technologiesData.map((group, index) => (
+          {groups.map((group, index) => (
             <div
               key={group.title[lang]}
               className={`${styles.card} ${
@@ -153,7 +154,7 @@ export default function TechnologiesSection({
 
       {/* Mobile view */}
       <div className={styles.mobileView}>
-        {technologiesData.map((group, index) => (
+        {groups.map((group, index) => (
           <div
             key={group.title[lang]}
             className={styles.mobileGroup}

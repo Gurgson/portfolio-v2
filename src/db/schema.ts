@@ -7,7 +7,7 @@ import {
   primaryKey,
 } from 'drizzle-orm/pg-core'
 import type { Localized } from '@/lib/i18n-config'
-import type { Technology } from '@/types/Technology'
+import type { Technology, TechGroupSide } from '@/types/Technology'
 
 export const translations = pgTable(
   'translations',
@@ -62,5 +62,14 @@ export const projects = pgTable('projects', {
   status: text('status'), // 'in-progress' | 'completed'
   seo: jsonb('seo').$type<ProjectSeo>().notNull(),
   followerMessages: jsonb('follower_messages').$type<Localized<string>>(),
+  sort: integer('sort').default(0).notNull(),
+})
+
+/** Grupy technologii (sekcja Technologies) — title + left/right (label + items). */
+export const techGroups = pgTable('tech_groups', {
+  id: integer('id').primaryKey(),
+  title: jsonb('title').$type<Localized<string>>().notNull(),
+  left: jsonb('left').$type<TechGroupSide>().notNull(),
+  right: jsonb('right').$type<TechGroupSide>().notNull(),
   sort: integer('sort').default(0).notNull(),
 })
