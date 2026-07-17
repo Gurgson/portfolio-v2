@@ -41,6 +41,12 @@ export async function generateMetadata({ params }: ProjectPageProps) {
       title: project.name[lang],
       description: project.cardDescription[lang],
       images: [project.thumbnailUrl],
+      type: 'article',
+    },
+    twitter: {
+      title: project.name[lang],
+      description: project.cardDescription[lang],
+      images: [project.thumbnailUrl],
     },
   }
 }

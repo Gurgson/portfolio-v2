@@ -12,10 +12,14 @@ export async function generateMetadata({
 }: ContactPageProps): Promise<Metadata> {
   const { lang } = (await params) as { lang: Locale }
   const t = await getT(lang)
+  const title = t('sections.contact.hero.title')
+  const description = t('sections.contact.hero.description')
 
   return {
-    title: t('sections.contact.hero.title'),
-    description: t('sections.contact.hero.description'),
+    title,
+    description,
+    openGraph: { title, description },
+    twitter: { title, description },
   }
 }
 

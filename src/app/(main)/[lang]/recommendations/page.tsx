@@ -14,10 +14,14 @@ export async function generateMetadata({
 }: RecommendationsPageProps): Promise<Metadata> {
   const { lang } = (await params) as { lang: Locale }
   const t = await getT(lang)
+  const title = t('recommendations.hero.title')
+  const description = t('recommendations.hero.description')
 
   return {
-    title: t('recommendations.hero.title'),
-    description: t('recommendations.hero.description'),
+    title,
+    description,
+    openGraph: { title, description },
+    twitter: { title, description },
   }
 }
 

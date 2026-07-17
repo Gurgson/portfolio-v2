@@ -9,7 +9,7 @@ import { cookies } from 'next/headers'
 import Footer from '@/sections/Footer/Footer'
 import { DictionaryProvider } from '@/providers/Dictionary/DictionaryProvider'
 import { ProjectSlugsProvider } from '@/providers/ProjectSlugs/ProjectSlugsProvider'
-import { getDictionary, createTranslator } from '@/lib/data/translations'
+import { getDictionary, createTranslator, getT } from '@/lib/data/translations'
 import { getProjectSlugs } from '@/lib/data/projects'
 
 export async function generateStaticParams() {
@@ -21,14 +21,22 @@ export async function generateMetadata({
 }: {
   params: Promise<{ lang: string }>
 }): Promise<Metadata> {
-  const { lang } = await params
+  const { lang } = (await params) as { lang: Locale }
+  const t = await getT(lang)
+  const description = t('seo.default.description')
 
   return {
+    description,
     alternates: {
       languages: Object.fromEntries(
         locales.map((locale) => [locale, `https://jstapinski.eu/${locale}`])
       ),
     },
+    openGraph: {
+      description,
+      locale: lang === 'pl' ? 'pl_PL' : 'en_US',
+    },
+    twitter: { description },
   }
 }
 

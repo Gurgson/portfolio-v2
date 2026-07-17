@@ -1,5 +1,7 @@
+import { Metadata } from 'next'
 import styles from './homePage.module.css'
 import { Locale } from '@/lib/i18n-config'
+import { getT } from '@/lib/data/translations'
 import HeroSection from '@/sections/HeroSection/HeroSection'
 import TechnologiesSection from '@/sections/TechnologiesSection/TechnologiesSection'
 import AboutSection from '@/sections/AboutSection/AboutSection'
@@ -11,6 +13,23 @@ import CTASection from '@/sections/CTASection/CTASection'
 
 interface HomePageProps {
   params: Promise<{ lang: string }>
+}
+
+export async function generateMetadata({
+  params,
+}: HomePageProps): Promise<Metadata> {
+  const { lang } = (await params) as { lang: Locale }
+  const t = await getT(lang)
+  const title = t('seo.home.title')
+  const description = t('seo.home.description')
+
+  return {
+    // absolute: bez sufiksu z szablonu (tytuł jest już pełny)
+    title: { absolute: title },
+    description,
+    openGraph: { title, description },
+    twitter: { title, description },
+  }
 }
 
 export default async function HomePage({ params }: HomePageProps) {
