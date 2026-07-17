@@ -2,6 +2,9 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // Bez optymalizatora (sharp) — obrazki serwowane wprost z public/.
+  // Wystarczające dla portfolio (pliki są już webp/jpg), działa w kontenerze.
+  images: { unoptimized: true },
   async rewrites() {
     return [
       {
