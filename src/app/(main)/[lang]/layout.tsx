@@ -22,6 +22,7 @@ import { StructuredData } from '@/components/StructuredData/StructuredData'
 
 const SITE_URL = 'https://jstapinski.eu'
 const SITE_NAME = 'Jakub Stapiński - Portfolio'
+const OG_IMAGE_URL = `${SITE_URL}/og.webp`
 
 function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale)
@@ -96,14 +97,22 @@ export async function generateMetadata({
       siteName: SITE_NAME,
       locale: lang === 'pl' ? 'pl_PL' : 'en_US',
       type: 'website',
-      images: `${SITE_URL}/icons/icon.svg`,
+      images: [
+        {
+          url: OG_IMAGE_URL,
+          width: 1200,
+          height: 630,
+          alt: `${SITE_NAME} — Full-Stack Developer`,
+          type: 'image/webp',
+        },
+      ],
     },
 
     twitter: {
       card: 'summary_large_image',
       title: SITE_NAME,
       description,
-      images: `${SITE_URL}/icons/icon.svg`,
+      images: [OG_IMAGE_URL],
     },
   }
 }
