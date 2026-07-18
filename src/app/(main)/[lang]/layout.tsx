@@ -97,15 +97,14 @@ export async function generateMetadata({
       siteName: SITE_NAME,
       locale: lang === 'pl' ? 'pl_PL' : 'en_US',
       type: 'website',
-      images: [
-        {
-          url: OG_IMAGE_URL,
-          width: 1200,
-          height: 630,
-          alt: `${SITE_NAME} — Full-Stack Developer`,
-          type: 'image/webp',
-        },
-      ],
+
+      images: {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — Full-Stack Developer`,
+        type: 'image/webp',
+      },
     },
 
     twitter: {

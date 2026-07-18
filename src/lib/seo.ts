@@ -5,6 +5,15 @@ import { SITE_CONFIG, PERSONAL_INFO } from './contants'
 const OG_LOCALE: Record<Locale, string> = { pl: 'pl_PL', en: 'en_US' }
 const SITE_NAME = `${PERSONAL_INFO.fullName} - Portfolio`
 
+// Domyślny obrazek udostępniania (public/og.webp, 1200×630). Używany, gdy
+// strona nie poda własnego (np. projekt podaje swoją miniaturę).
+const DEFAULT_OG_IMAGE = {
+  url: `${SITE_CONFIG.url}/og.webp`,
+  width: 1200,
+  height: 630,
+  alt: `${PERSONAL_INFO.fullName} — Full-Stack Developer`,
+}
+
 interface OgArgs {
   title: string
   description: string
@@ -29,7 +38,7 @@ export function buildOpenGraph({
     siteName: SITE_NAME,
     url: `${SITE_CONFIG.url}${path ?? ''}`,
     locale: OG_LOCALE[lang],
-    ...(images ? { images } : {}),
+    images: images ?? [DEFAULT_OG_IMAGE],
   }
 }
 
@@ -39,9 +48,9 @@ export function buildTwitter({
   images,
 }: Pick<OgArgs, 'title' | 'description' | 'images'>): Metadata['twitter'] {
   return {
-    card: images && images.length ? 'summary_large_image' : 'summary',
+    card: 'summary_large_image',
     title,
     description,
-    ...(images ? { images } : {}),
+    images: images ?? [DEFAULT_OG_IMAGE.url],
   }
 }
