@@ -61,16 +61,6 @@ export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
             ★
           </span>
         )}
-
-        {project.teamSize && project.teamSize > 1 && (
-          <span className={styles.teamBadge}>👥 {project.teamSize}</span>
-        )}
-
-        {project.category && (
-          <span className={styles.categoryBadge}>
-            {project.category === 'web' ? '🌐' : '💻'}
-          </span>
-        )}
       </div>
 
       <div className={styles.cardContent}>
