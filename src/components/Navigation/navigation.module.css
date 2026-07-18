@@ -110,16 +110,10 @@
   transition: all 0.3s ease;
 }
 
-.burgerOpen span:nth-child(1) {
-  transform: rotate(45deg) translate(0.6rem, 0.6rem);
-}
-
-.burgerOpen span:nth-child(2) {
-  opacity: 0;
-}
-
-.burgerOpen span:nth-child(3) {
-  transform: rotate(-45deg) translate(0.6rem, -0.6rem);
+/* Gdy menu otwarte, chowamy burger — zamykanie jest osobnym przyciskiem (X)
+   wewnątrz panelu. (0,2,0 bije .burger z media query.) */
+.burger.burgerOpen {
+  display: none;
 }
 
 .overlay {
@@ -141,6 +135,9 @@
   width: 300px;
   height: 100%;
   background: var(--color-background, #1a1a1a);
+  /* Własny kolor tekstu wg motywu — menu ma solidne tło, więc nie może
+     dziedziczyć wymuszonej bieli nawigacji (biały na jasnym = niewidoczny). */
+  color: var(--color-text-primary);
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   transition: right 0.3s ease;
@@ -191,7 +188,7 @@
 }
 
 .mobileLink:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-highlight);
 }
 
 @media (max-width: 768px) {
