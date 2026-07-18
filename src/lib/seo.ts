@@ -9,7 +9,6 @@ interface OgArgs {
   title: string
   description: string
   lang: Locale
-  /** ścieżka absolutna na stronie, np. '/pl/contact' (do og:url) */
   path?: string
   images?: string[]
   type?: 'website' | 'article'
