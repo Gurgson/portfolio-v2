@@ -5,7 +5,10 @@ import { Pool } from 'pg'
 import fs from 'fs'
 
 const env = fs.readFileSync('.env.local', 'utf8')
-const url = env.match(/DATABASE_URL=(.+)/)[1].trim().replace(/^["']|["']$/g, '')
+const url = env
+  .match(/DATABASE_URL=(.+)/)[1]
+  .trim()
+  .replace(/^["']|["']$/g, '')
 const pool = new Pool({ connectionString: url })
 
 // page, key, { pl, en }
