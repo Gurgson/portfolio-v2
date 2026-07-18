@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: '%s | Jakub Stapiński - Portfolio',
   },
   description:
-    "Jakub Stapiński — full-stack developer. Projects, skills and expertise in React, Next.js, .NET and Node.js. Web apps, APIs and software architecture.",
+    'Jakub Stapiński — full-stack developer. Projects, skills and expertise in React, Next.js, .NET and Node.js. Web apps, APIs and software architecture.',
   authors: [
     {
       name: 'Jakub Stapiński',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Jakub Stapiński - Portfolio',
     description:
-      "Jakub Stapiński — full-stack developer. React, Next.js, .NET, Node.js.",
+      'Jakub Stapiński — full-stack developer. React, Next.js, .NET, Node.js.',
     url: 'https://jstapinski.eu',
     siteName: 'Jakub Stapiński - Portfolio',
     locale: 'en_US',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jakub Stapiński - Portfolio',
     description:
-      "Jakub Stapiński — full-stack developer. React, Next.js, .NET, Node.js.",
+      'Jakub Stapiński — full-stack developer. React, Next.js, .NET, Node.js.',
   },
   keywords: [
     'portfolio',

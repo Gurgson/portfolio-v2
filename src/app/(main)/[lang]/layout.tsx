@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation/Navigation'
 import { ThemeProvider } from '@/providers/Themes/ThemeProvider'
 import { Follower, FollowerProvider, Spawn } from '@/components/FollowerSystem'
 import { SetHtmlLang } from '@/components/SetHtmlLang/SetHtmlLang'
+import { StructuredData } from '@/components/StructuredData/StructuredData'
 import { cookies } from 'next/headers'
 import Footer from '@/sections/Footer/Footer'
 import { DictionaryProvider } from '@/providers/Dictionary/DictionaryProvider'
@@ -66,6 +67,7 @@ export default async function LangLayout({
 
   return (
     <>
+      <StructuredData />
       <SetHtmlLang lang={lang} />
       <ThemeProvider initialTheme={initialTheme}>
         <DictionaryProvider dict={dict}>

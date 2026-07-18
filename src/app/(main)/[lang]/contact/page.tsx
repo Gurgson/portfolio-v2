@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { Locale } from '@/lib/i18n-config'
 import { getT } from '@/lib/data/translations'
+import { buildOpenGraph, buildTwitter } from '@/lib/seo'
 import { ContactSection } from '@/sections/ContactSection/ContactSection'
 
 interface ContactPageProps {
@@ -18,8 +19,14 @@ export async function generateMetadata({
   return {
     title,
     description,
-    openGraph: { title, description },
-    twitter: { title, description },
+    alternates: { canonical: `/${lang}/contact` },
+    openGraph: buildOpenGraph({
+      title,
+      description,
+      lang,
+      path: `/${lang}/contact`,
+    }),
+    twitter: buildTwitter({ title, description }),
   }
 }
 

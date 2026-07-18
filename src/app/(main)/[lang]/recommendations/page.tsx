@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { Locale } from '@/lib/i18n-config'
 import { getT } from '@/lib/data/translations'
+import { buildOpenGraph, buildTwitter } from '@/lib/seo'
 import styles from './recommendationsPage.module.css'
 import { getRecommendations } from '@/lib/data/recommendations'
 import RecommendationCard from './RecommendationCard'
@@ -20,8 +21,14 @@ export async function generateMetadata({
   return {
     title,
     description,
-    openGraph: { title, description },
-    twitter: { title, description },
+    alternates: { canonical: `/${lang}/recommendations` },
+    openGraph: buildOpenGraph({
+      title,
+      description,
+      lang,
+      path: `/${lang}/recommendations`,
+    }),
+    twitter: buildTwitter({ title, description }),
   }
 }
 

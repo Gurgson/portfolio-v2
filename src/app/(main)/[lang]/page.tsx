@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import styles from './homePage.module.css'
 import { Locale } from '@/lib/i18n-config'
 import { getT } from '@/lib/data/translations'
+import { buildOpenGraph, buildTwitter } from '@/lib/seo'
 import HeroSection from '@/sections/HeroSection/HeroSection'
 import TechnologiesSection from '@/sections/TechnologiesSection/TechnologiesSection'
 import AboutSection from '@/sections/AboutSection/AboutSection'
@@ -27,8 +28,9 @@ export async function generateMetadata({
     // absolute: bez sufiksu z szablonu (tytuł jest już pełny)
     title: { absolute: title },
     description,
-    openGraph: { title, description },
-    twitter: { title, description },
+    alternates: { canonical: `/${lang}` },
+    openGraph: buildOpenGraph({ title, description, lang, path: `/${lang}` }),
+    twitter: buildTwitter({ title, description }),
   }
 }
 

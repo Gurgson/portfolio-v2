@@ -15,11 +15,14 @@ function buildSegments(lang: Locale): Tok[] {
   const prop = (t: string): Tok => ({ t, c: styles.prop })
   const x = (t: string): Tok => ({ t })
 
-  const greeting = lang === 'pl' ? '"Cześć!"' : '"Hello!"'
-  const hire =
+  const introduce =
     lang === 'pl'
-      ? '"Zbudujmy razem coś wielkiego!"'
-      : '"Let\'s build something great!"'
+      ? '$"Cześć! Jestem {Name}, {Role}."'
+      : '$"Hi! I\'m {Name}, {Role}."'
+  const contact =
+    lang === 'pl'
+      ? '"Porozmawiajmy o współpracy!"'
+      : '"Let\'s work together!"'
 
   const lines: Tok[][] = [
     [
@@ -34,16 +37,16 @@ function buildSegments(lang: Locale): Tok[] {
     [x('{')],
     [
       x('    '),
-      kw('public string'),
+      kw('public override string'),
       x(' '),
-      prop('Greeting'),
+      prop('Name'),
       x(' => '),
-      str(greeting),
+      str('"Jakub"'),
       x(';'),
     ],
     [
       x('    '),
-      kw('public string'),
+      kw('public override string'),
       x(' '),
       prop('Role'),
       x(' => '),
@@ -51,28 +54,67 @@ function buildSegments(lang: Locale): Tok[] {
       x(';'),
     ],
     [],
-    [x('    '), kw('public string'), x('[] '), prop('Stack'), x(' =>')],
+    [
+      x('    '),
+      kw('public override'),
+      x(' '),
+      typ('IReadOnlyCollection'),
+      x('<'),
+      typ('Technology'),
+      x('> '),
+      prop('TechStack'),
+      x(' { '),
+      kw('get'),
+      x('; } ='),
+    ],
     [x('    [')],
-    [x('        '), str('"C#"'), x(',')],
-    [x('        '), str('".NET"'), x(',')],
-    [x('        '), str('"React"'), x(',')],
-    [x('        '), str('"Next.js"')],
+    [x('        '), typ('Technology'), x('.'), prop('CSharp'), x(',')],
+    [x('        '), typ('Technology'), x('.'), prop('DotNet'), x(',')],
+    [x('        '), typ('Technology'), x('.'), prop('TypeScript'), x(',')],
+    [x('        '), typ('Technology'), x('.'), prop('React'), x(',')],
+    [x('        '), typ('Technology'), x('.'), prop('NextJs')],
     [x('    ];')],
     [],
     [
       x('    '),
       kw('public bool'),
       x(' '),
-      prop('OpenToWork'),
+      prop('IsAvailable'),
       x(' => '),
       kw('true'),
       x(';'),
     ],
     [],
-    [x('    '), kw('public override string'), x(' '), fn('HireMe'), x('()')],
-    [x('    {')],
-    [x('        '), kw('return'), x(' '), str(hire), x(';')],
-    [x('    }')],
+    [
+      x('    '),
+      kw('public override string'),
+      x(' '),
+      fn('Introduce'),
+      x('() =>'),
+    ],
+    [x('        '), str(introduce), x(';')],
+    [],
+    [
+      x('    '),
+      kw('public'),
+      x(' '),
+      typ('Software'),
+      x(' '),
+      fn('Build'),
+      x('('),
+      typ('Idea'),
+      x(' idea) =>'),
+    ],
+    [x('        '), kw('new'), x('(idea, '), prop('TechStack'), x(');')],
+    [],
+    [
+      x('    '),
+      kw('public string'),
+      x(' '),
+      fn('Contact'),
+      x('() =>'),
+    ],
+    [x('        '), str(contact), x(';')],
     [x('}')],
   ]
 

@@ -20,6 +20,10 @@ function getLocale(request: NextRequest): string {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
+  if (pathname === '/') {
+    return NextResponse.next()
+  }
+
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
@@ -30,17 +34,11 @@ export function middleware(request: NextRequest) {
 
   const locale = getLocale(request)
 
-  // ✅ ZMIANA: rewrite zamiast redirect
   const url = request.nextUrl.clone()
   url.pathname = `/${locale}${pathname}`
   return NextResponse.rewrite(url)
 }
 
 export const config = {
-  matcher: [
-    // Pomiń wewnętrzne ścieżki Next.js ORAZ pliki statyczne (ścieżki z kropką,
-    // np. /bird-spawn.png, /me.jpg, /hero/night/night-1.webp) — inaczej
-    // middleware przepisuje je na /pl/... i łapie catch-all not-found.
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)'],
 }

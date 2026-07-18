@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Locale } from '@/lib/i18n-config'
 import { getProjectBySlug } from '@/lib/data/projects'
+import { buildOpenGraph, buildTwitter } from '@/lib/seo'
 import styles from './projectPage.module.css'
 
 // Zawsze render na żądanie. Layout [lang] czyta ciasteczko motywu (cookies()),
@@ -33,21 +34,24 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     ...(longTail?.[lang] ?? []),
   ].filter(Boolean)
 
+  const ogTitle = project.name[lang]
+  const ogDesc = project.cardDescription[lang]
+  const images = [project.thumbnailUrl]
+
   return {
     title: project.seo.title[lang],
     keywords: keywordsArr,
     description: project.seo.desc[lang],
-    openGraph: {
-      title: project.name[lang],
-      description: project.cardDescription[lang],
-      images: [project.thumbnailUrl],
+    alternates: { canonical: `/${lang}/project/${slug}` },
+    openGraph: buildOpenGraph({
+      title: ogTitle,
+      description: ogDesc,
+      lang,
+      path: `/${lang}/project/${slug}`,
+      images,
       type: 'article',
-    },
-    twitter: {
-      title: project.name[lang],
-      description: project.cardDescription[lang],
-      images: [project.thumbnailUrl],
-    },
+    }),
+    twitter: buildTwitter({ title: ogTitle, description: ogDesc, images }),
   }
 }
 
