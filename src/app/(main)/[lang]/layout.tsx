@@ -138,11 +138,10 @@ export default async function LangLayout({
     <html lang={lang} suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <StructuredData />
       </head>
 
       <body>
-        <StructuredData />
-
         <ThemeProvider initialTheme={initialTheme}>
           <DictionaryProvider dict={dict}>
             <ProjectSlugsProvider slugs={projectSlugs}>
