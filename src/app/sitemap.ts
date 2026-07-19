@@ -3,9 +3,6 @@ import { locales } from '@/lib/i18n-config'
 import { SITE_CONFIG } from '@/lib/contants'
 import { getProjectSlugs } from '@/lib/data/projects'
 
-// Generowany na żądanie: dzięki temu ma dostęp do DB (projekty) w runtime.
-// Przy buildzie w kontenerze nie ma DATABASE_URL, więc statyczny sitemap
-// zgubiłby strony projektów.
 export const dynamic = 'force-dynamic'
 
 const BASE = SITE_CONFIG.url

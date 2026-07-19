@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type Recommendation from '@/types/Recomendations'
 import type { Locale } from '@/lib/i18n-config'
 import styles from './recommendationsPage.module.css'
@@ -42,10 +43,13 @@ export default function RecommendationCard({
         className={styles.pdfPreview}
         aria-label={`${rec.company} – PDF`}
       >
-        <img
+        <Image
           src={rec.imagePath[lang]}
           alt={`${rec.company} rekomendacja`}
+          width={827}
+          height={1169}
           className={styles.pdfImage}
+          sizes="(max-width: 900px) 100vw, 450px"
         />
       </a>
 

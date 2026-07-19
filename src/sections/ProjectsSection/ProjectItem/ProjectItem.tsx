@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ProjectItemProps } from '../types'
 import { useT } from '@/providers/Dictionary/DictionaryProvider'
 import styles from './projectItem.module.css'
@@ -38,10 +39,12 @@ export const ProjectItem = ({ project, lang }: ProjectItemProps) => {
   return (
     <article className={styles.card}>
       <div className={styles.cardImageWrapper}>
-        <img
+        <Image
           src={project.thumbnailUrl}
           alt={project.name[lang]}
+          fill
           className={styles.cardImage}
+          sizes="(max-width: 768px) 100vw, 320px"
         />
         <div className={styles.cardOverlay} />
 

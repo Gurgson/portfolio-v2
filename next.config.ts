@@ -3,7 +3,12 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   output: 'standalone',
 
-  images: { unoptimized: true },
+  // Optymalizacja next/image WŁĄCZONA — wymaga `sharp` w runtime (instalowany
+  // w kontenerze, patrz Dockerfile). Serwuje responsywne rozmiary + webp.
+  // avif pomijamy: kodowanie jest kosztowne CPU na małym VPS.
+  images: {
+    formats: ['image/webp'],
+  },
   htmlLimitedBots: /.*/,
   async rewrites() {
     return [
