@@ -20,10 +20,6 @@ function getLocale(request: NextRequest): string {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  if (pathname === '/') {
-    return NextResponse.next()
-  }
-
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
@@ -34,8 +30,12 @@ export function middleware(request: NextRequest) {
 
   const locale = getLocale(request)
 
+  // Rewrite (NIE redirect) na wykryty język — także dla apexa '/'. Dzięki temu
+  // '/' serwuje pełny HTML z metadanymi OG. Scrapery (Messenger/WhatsApp/iMessage)
+  // często nie idą za redirectem, więc redirect => pusty podgląd. Dla roota
+  // unikamy podwójnego ukośnika ('/pl/', który nie łapie trasy '/pl').
   const url = request.nextUrl.clone()
-  url.pathname = `/${locale}${pathname}`
+  url.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`
   return NextResponse.rewrite(url)
 }
 
