@@ -7,8 +7,10 @@ const SITE_NAME = `${PERSONAL_INFO.fullName} - Portfolio`
 
 // Domyślny obrazek udostępniania (public/og.webp, 1200×630). Używany, gdy
 // strona nie poda własnego (np. projekt podaje swoją miniaturę).
+// jpg (nie webp) dla maksymalnej zgodności podglądów — Messenger/WhatsApp/iMessage
+// bywają wybredne z webp. 1200×630, ~60KB (poniżej limitu WhatsAppa ~300KB).
 const DEFAULT_OG_IMAGE = {
-  url: `${SITE_CONFIG.url}/og.webp`,
+  url: `${SITE_CONFIG.url}/og.jpg`,
   width: 1200,
   height: 630,
   alt: `${PERSONAL_INFO.fullName} — Full-Stack Developer`,
