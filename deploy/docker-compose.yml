@@ -1,5 +1,6 @@
-# VPS: Caddy (reverse proxy + auto-HTTPS Let's Encrypt) + portfolio (Next).
-# DB: na razie Neon (DATABASE_URL w ../.env). Lokalny Postgres dodamy później.
+# VPS: Caddy (reverse proxy + auto-HTTPS) + portfolio (Next).
+# Postgres działa NATYWNIE na hoście (nie w Dockerze). Portfolio łączy się do
+# niego przez host.docker.internal (patrz extra_hosts) — DATABASE_URL w ../.env.
 # czytnik.jstapinski.eu: statyczny placeholder serwowany przez Caddy.
 
 services:
@@ -25,9 +26,12 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     env_file:
-      - ../.env # DATABASE_URL (Neon) itd.
+      - ../.env # DATABASE_URL (app, read-only, @host.docker.internal) itd.
     environment:
       NODE_ENV: production
+    # Dostęp z kontenera do natywnego Postgresa na hoście.
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     networks:
       - web
     # brak publish portów — ruch idzie przez Caddy (portfolio:3000)
