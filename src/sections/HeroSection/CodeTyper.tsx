@@ -20,9 +20,7 @@ function buildSegments(lang: Locale): Tok[] {
       ? '$"Cześć! Jestem {Name}, {Role}."'
       : '$"Hi! I\'m {Name}, {Role}."'
   const contact =
-    lang === 'pl'
-      ? '"Porozmawiajmy o współpracy!"'
-      : '"Let\'s work together!"'
+    lang === 'pl' ? '"Porozmawiajmy o współpracy!"' : '"Let\'s work together!"'
 
   const lines: Tok[][] = [
     [
@@ -107,13 +105,7 @@ function buildSegments(lang: Locale): Tok[] {
     ],
     [x('        '), kw('new'), x('(idea, '), prop('TechStack'), x(');')],
     [],
-    [
-      x('    '),
-      kw('public string'),
-      x(' '),
-      fn('Contact'),
-      x('() =>'),
-    ],
+    [x('    '), kw('public string'), x(' '), fn('Contact'), x('() =>')],
     [x('        '), str(contact), x(';')],
     [x('}')],
   ]
@@ -144,7 +136,7 @@ export function CodeTyper({ lang }: { lang: Locale }) {
     }
 
     const startAt = performance.now() + 1200 // po pojawieniu się karty
-    const perChar = 9 // ms na znak
+    const perChar = 5 // ms na znak
     const tick = (now: number) => {
       const elapsed = now - startAt
       const n =
