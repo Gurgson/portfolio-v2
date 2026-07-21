@@ -105,7 +105,22 @@ html,
 body {
   max-width: 100vw;
   font-size: 62.5%;
-  overflow-x: hidden;
+  /* `clip` zamiast `hidden`: dalej blokuje poziome wylewanie, ale NIE tworzy
+     kontenera przewijania — inaczej `position: sticky` (stackowanie sekcji)
+     przestaje działać względem viewportu. */
+  overflow-x: clip;
+}
+
+/* Płynne przewijanie do kotwic (kropki nawigacji sekcji są zwykłymi linkami
+   `#id`) — dzięki temu działa bez JS. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
