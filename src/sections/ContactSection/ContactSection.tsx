@@ -125,21 +125,6 @@ export function ContactSection({ lang }: ContactSectionProps) {
               </div>
             </div>
 
-            {/* Availability Card */}
-            <div className={styles.availabilityCard}>
-              <div className={styles.availabilityHeader}>
-                <span className={styles.availabilityDot} />
-                <h3 className={styles.availabilityTitle}>
-                  {t('sections.contact.availability.title')}
-                </h3>
-              </div>
-              <p className={styles.availabilityText}>
-                {t('sections.contact.availability.text')}
-              </p>
-              <p className={styles.responseTime}>
-                {t('sections.contact.availability.responseTime')}
-              </p>
-            </div>
           </aside>
 
           {/* Form Section */}

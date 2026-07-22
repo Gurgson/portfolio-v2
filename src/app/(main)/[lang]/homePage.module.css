@@ -1,0 +1,44 @@
+/* ---- Stackowanie sekcji ----------------------------------------------------
+   Każda sekcja przykleja się do góry viewportu, a następna (późniejsza w DOM,
+   więc malowana wyżej) wjeżdża NA nią, przysłaniając poprzednią.
+   Efekt jest czysto CSS-owy (position: sticky) — działa z SSR.
+   Wymaga, żeby żaden przodek nie miał overflow innego niż visible/clip
+   (dlatego html/body mają overflow-x: clip, nie hidden — patrz globals.css). */
+
+.stackItem {
+  position: sticky;
+
+  /* Kluczowa sztuczka dla długich sekcji.
+     `--stack-top` wylicza <StackFit /> jako `min(0, wysokość ekranu − wysokość sekcji)`:
+       • sekcja MIEŚCI SIĘ na ekranie  → 0  → przypina się od razu (klasyczny stack),
+       • sekcja WYŻSZA niż ekran       → wartość ujemna → przykleja się DOŁEM,
+         więc najpierw przewija się CAŁA jej treść (nic nie jest ucięte),
+         a dopiero potem przypina się i kolejna sekcja na nią wjeżdża.
+     Dzięki temu efekt nakładania działa też na wąskich ekranach i długich
+     panelach. Bez JS zostaje 0 — czyli zachowanie jak dotąd. */
+  top: var(--stack-top, 0px);
+
+  /* Tło dla sekcji, które własnego nie mają (About, Technologies) — bez tego
+     prześwitywałaby sekcja pod spodem. Sekcje z własnym tłem (Projects, CTA)
+     przykryją to swoim. */
+  background-color: var(--color-background);
+}
+
+/* Sekcja w środku wypełnia ekran, żeby jej własne tło pokryło całą wysokość.
+   dvh zamiast vh — poprawnie liczy paski adresu na mobile. */
+.stackItem > * {
+  min-height: 100dvh;
+}
+
+/* CTA to ostatnia sekcja — ma być ZWARTA (niższa), nie na cały ekran.
+   Zdejmujemy jej sticky i wymuszony 100dvh. Dzięki normalnemu flow wciąż
+   wjeżdża na przypięte Projekty (jest później w DOM, więc maluje się wyżej),
+   ale zajmuje tylko tyle ile treść — a zaraz po niej pojawia się footer.
+   (id `#cta` bije klasę `.stackItem` specyficznością.) */
+:global(#cta) {
+  position: static;
+}
+
+:global(#cta) > * {
+  min-height: auto;
+}
