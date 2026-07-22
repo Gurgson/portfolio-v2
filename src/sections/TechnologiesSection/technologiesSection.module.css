@@ -278,6 +278,12 @@
 
 /* Responsywność */
 @media (max-width: 768px) {
+  .section {
+    /* Zapas od dołu — przy stackowaniu treść nie znika zbyt szybko pod
+       nasuwającą się kolejną sekcją. */
+    padding: 4rem 0 14rem;
+  }
+
   .desktopView {
     display: none;
   }

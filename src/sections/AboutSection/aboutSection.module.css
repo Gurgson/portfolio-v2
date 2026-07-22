@@ -297,7 +297,9 @@
 /* Mobile */
 @media (max-width: 650px) {
   .section {
-    padding: 5rem 1.5rem;
+    /* Zapas od dołu jak na desktopie: przy stackowaniu treść zdąży się
+       pokazać, zanim następna sekcja ją zasłoni. */
+    padding: 5rem 1.5rem 20rem;
   }
 
   .container {

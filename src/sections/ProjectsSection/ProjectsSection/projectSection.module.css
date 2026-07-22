@@ -209,7 +209,9 @@
 
 @media screen and (max-width: 600px) {
   .section {
-    padding: 2rem 4%;
+    /* Zapas od dołu — lista projektów zdąży się pokazać, zanim CTA ją
+       zasłoni przy stackowaniu. */
+    padding: 2rem 4% 12rem;
   }
 
   .controls {
