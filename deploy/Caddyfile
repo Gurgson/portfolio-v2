@@ -15,6 +15,9 @@ www.jstapinski.eu {
 
 # Placeholder Czytnika (docelowo kontener .NET)
 czytnik.jstapinski.eu {
-	root * /srv/czytnik
-	file_server
+	encode gzip zstd
+	# Kontener Czytnika (własne repo/compose) w sieci `edge`; `czytnik` to alias
+	# serwisu nadawany przez compose. Statyczny placeholder leży w deploy/czytnik
+	# — zostaje na wypadek gdyby trzeba było wrócić.
+	reverse_proxy czytnik:8080
 }

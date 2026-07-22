@@ -19,6 +19,10 @@ services:
       - portfolio
     networks:
       - web
+      # `edge` to wspólna sieć dla apek za tym proxy (Czytnik ma własne repo
+      # i compose, ale dołącza do tej samej sieci) — dzięki temu Caddy może
+      # kierować do niego ruch po nazwie serwisu.
+      - edge
 
   portfolio:
     build:
@@ -38,6 +42,10 @@ services:
 
 networks:
   web:
+  # Tworzona ręcznie na VPS (`docker network create edge`) i współdzielona
+  # z innymi projektami — dlatego external, nie zarządzamy nią stąd.
+  edge:
+    external: true
 
 volumes:
   caddy_data:
