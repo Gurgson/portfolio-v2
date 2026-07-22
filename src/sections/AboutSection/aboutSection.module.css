@@ -1,9 +1,20 @@
 .section {
   position: relative;
-  padding: 8rem 2rem;
+  /* Więcej miejsca na dole: sekcja jest wyższa, więc przy stackowaniu blok
+     tekstu dłużej pozostaje widoczny, zanim następna sekcja go zasłoni. */
+  padding: 8rem 2rem 30rem;
   display: flex;
   justify-content: center;
   overflow: hidden;
+  /* Odróżnialne tło (subtelny "panel"), żeby przy stackowaniu było widać
+     granicę między About a Technologies — obie inaczej miałyby to samo
+     --color-background i "białe zasuwałoby białe". Przesunięcie ku kolorowi
+     tekstu daje kontrast w OBU motywach (jaśniejszy granat / lekko szary). */
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 88%,
+    var(--color-text-primary) 12%
+  );
 }
 
 .container {

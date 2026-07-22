@@ -29,3 +29,16 @@
 .stackItem > * {
   min-height: 100dvh;
 }
+
+/* CTA to ostatnia sekcja — ma być ZWARTA (niższa), nie na cały ekran.
+   Zdejmujemy jej sticky i wymuszony 100dvh. Dzięki normalnemu flow wciąż
+   wjeżdża na przypięte Projekty (jest później w DOM, więc maluje się wyżej),
+   ale zajmuje tylko tyle ile treść — a zaraz po niej pojawia się footer.
+   (id `#cta` bije klasę `.stackItem` specyficznością.) */
+:global(#cta) {
+  position: static;
+}
+
+:global(#cta) > * {
+  min-height: auto;
+}

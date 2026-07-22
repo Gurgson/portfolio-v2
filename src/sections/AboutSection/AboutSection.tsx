@@ -69,11 +69,6 @@ export default async function AboutSection({ lang }: AboutSectionProps) {
             className={styles.description}
             dangerouslySetInnerHTML={{ __html: t('about.description') }}
           />
-
-          <div className={styles.availability}>
-            <span className={styles.availabilityDot} />
-            <small>{t('sections.homeAbout.availability')}</small>
-          </div>
         </div>
       </div>
     </section>

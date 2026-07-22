@@ -39,7 +39,10 @@ export default function TechnologiesSection({
   groups,
 }: TechnologiesSectionProps) {
   const [activeGroup, setActiveGroup] = useState<TechnologyGroup | null>(null)
-  const [lockedGroup, setLockedGroup] = useState<TechnologyGroup | null>(null)
+  // Domyślnie przypięty pierwszy guzik (można odpiąć/zmienić klikiem).
+  const [lockedGroup, setLockedGroup] = useState<TechnologyGroup | null>(
+    groups[0] ?? null
+  )
 
   const t = useT()
   const displayedGroup = lockedGroup || activeGroup
